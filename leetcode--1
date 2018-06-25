@@ -1,8 +1,8 @@
 class Solution(object):
     def twoSum(self, nums, target):
-        list2={}
-        for i,value in enumerate(nums):
+        list2={}                            //creat a empty dictionary
+        for i,value in enumerate(nums):     //enumerate: 枚举，返回list里每个位置和对应位置的值
             a=target-value
             if a in list2:
-                return [list2[a],i]
+                return [list2[a],i]         //返回dictionary里值对应的位置
             list2[value]=i
