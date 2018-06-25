@@ -1,0 +1,8 @@
+class Solution(object):
+    def twoSum(self, nums, target):
+        list2={}
+        for i,value in enumerate(nums):
+            a=target-value
+            if a in list2:
+                return [list2[a],i]
+            list2[value]=i
