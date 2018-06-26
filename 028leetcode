@@ -1,0 +1,23 @@
+class Solution(object):
+    def strStr(self, haystack, needle):
+        """
+        :type haystack: str
+        :type needle: str
+        :rtype: int
+        """
+        if len(haystack)==len(needle):  //两个字符串长度相等
+            if haystack == needle:      //完全一样
+                return 0                //0 第一位
+            else:
+                return -1               //都是空
+   
+        for i in range(0, len(haystack)):
+            a = i
+            b = 0
+            while b < len(needle) and a < len(haystack) and haystack[a] == needle[b]: //都小于字符串长度，每位对应相等
+                b += 1
+                a += 1
+            if b == len(needle):   //b的长度和needle相等
+                return i
+        return -1 if needle else 0
+        
