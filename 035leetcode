@@ -1,0 +1,22 @@
+class Solution(object):
+    def searchInsert(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        if len(nums) == 0 :          //nums是空，返回0
+            return 0
+        elif len(nums) == 1 :        //nums是1，target小于等于nums里的值，返回0，target大于nums里的值，返回1
+            if target <= nums[0] :
+                return 0
+            elif target > nums[-1]:
+                return 1
+        else:
+            for i in range (0,len(nums)-1):    //nums大于1
+                if target <= nums[0] :         //target小于等于第一个值，返回0；
+                    return 0
+                elif target > nums[-1]:        //target大于最后值，返回长度
+                    return len(nums)
+                elif target > nums[i] and target <= nums[i+1] : //target大于i，小于等于i+1，返回i+1
+                    return i+1
