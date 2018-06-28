@@ -1,0 +1,21 @@
+class Solution(object):
+    def countAndSay(self, n):
+        """
+        :type n: int
+        :rtype: str
+        """
+        a="1"
+        for i in range (0,n-1):                //运行n-1次一共
+            st=""                              //输出
+            b=a[0]                             //b代表每碰到一个新的不连续的数字
+            num=0                              //b的这个数字出现次数
+            for j in range(0,len(a)):          //循环前次的报数结果
+                if a[j] == b:                  //连续的话，次数加一
+                    num=num+1
+                else:
+                    st= st + str(num)+ str(b)  //不连续，输出，原字符+次数+这次数字
+                    b=a[j]                     //起始新的数字
+                    num = 1                    //记一次
+            st = st +str(num)+str(b)           //输出总的str结果
+            a = st                             //st不是全局变量，等于a，输出a（全局变量）
+        return a
