@@ -1,0 +1,63 @@
+class Solution(object):
+    def addBinary(self, a, b):
+        """
+        :type a: str
+        :type b: str
+        :rtype: str
+        """
+
+        diff = abs(len(a)-len(b))    //长度差
+        dis = max(len(a),len(b))     //最长的
+        if a == b == "0":            //都是“0”，返回“0”
+            return "0"
+        if len(a) > len (b):         //短的字符串，前面补“0”
+            b = "0" * diff + b
+
+        elif len(a) < len(b):
+            a = "0" * diff + a
+
+        add = 0                      //进位 = 0
+        am = []
+        bm = []
+        for i in range (0,dis):      //字符串，转换数组，里面是int数字
+            am.append(int(a[i]))
+            bm.append(int(b[i]))
+        c = []
+        am.reverse()                 //反转，最小位在前
+        bm.reverse()
+
+        for i in range (0,dis):               
+            if am[i] + bm[i] + add == 0:     //0+0+0=0，返回“0”，进位是0
+                c.append("0")
+                add = 0
+            elif am[i] + bm[i] + add == 1:   //x+y+z=1（只有一个1），返回“1”，进位是0
+                c.append("1")
+                add = 0
+            elif am[i] + bm[i] + add == 2:   //x+y+z=2（只有2个1），返回“0”，进位是1
+                c.append("0")
+                add = 1
+            elif am[i] + bm[i] + add == 3:   //x+y+z=3（3个1），返回“1”，进位是1
+                c.append("1")
+                add = 1
+        if add == 1:         //如果最后还是有进位，c最后面插“1”
+            c.append ('1')
+        
+
+        c.reverse()         //c反转，最高位在0位
+        st="".join(c)       //数组转字符串
+        return st
+        
+        
+        
+class Solution(object):
+    def addBinary(self, a, b):
+        """
+        :type a: str
+        :type b: str
+        :rtype: str
+        """
+        a1=int(a,2)    //字符串转为2进制整型
+        b1=int(b,2)
+        s1=a1+b1
+        s=bin(s1)      //bin() 返回一个整数 int 或者长整数 long int 的二进制表示
+        return s[2:]
