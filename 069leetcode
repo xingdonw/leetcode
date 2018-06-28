@@ -42,3 +42,15 @@ class Solution:
                 break
             mid = (min+max)//2
         return mid  
+
+class Solution:
+    def mySqrt(self, x):
+        """
+        :type x: int
+        :rtype: int
+        """
+        y=0.00
+
+        y=int(x**0.5)
+        
+        return y
