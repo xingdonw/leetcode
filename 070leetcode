@@ -1,0 +1,26 @@
+class Solution(object):
+    def climbStairs(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        if n <= 1:
+            return 1
+        first = 1
+        second = 1
+        for i in range (1,n):
+            tep = first + second
+            first = second
+            second = tep
+        return second
+        
+        
+如果n = 1层，可以有[1] ,   f(1) = 1种方法
+
+如果n = 2层，可以有[1,1] ,[2],  f(2) =  2种方法
+
+如果n = 3层，可以有[1,1,1],[1,2],[2,1], f(3) = f(1) + f(2) = 3种方法。
+
+如果n = 4层，可以有[1,1,1,1],[1,2,1],[1,1,2],[2,1,1],[2,2] , f(5)  = f(4) + f(3) = 5种方法。
+
+可以发现 f(n) = f(n-1) + f(n-2)
