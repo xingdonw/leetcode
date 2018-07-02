@@ -1,0 +1,14 @@
+class Solution(object):
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+        if prices == []:        //prices空，返回0
+            return 0
+        pro = 0                //初始利润为0
+        begin = prices[0]      //低价位，是第0位
+        for i in range (1,len(prices)):
+            begin = min (begin,prices[i])     //低价位，初始低价位和本位的最小
+            pro = max (pro, (prices[i]-begin))  //利润是初始利润与差值的最大值
+        return pro
