@@ -16,3 +16,16 @@ class Solution(object):
         for i in range (1,len(nums)-1):       //中间位不等于前，后，返回中间位
             if nums[i-1] <nums[i] and nums[i]<nums[i+1]:
                 return nums[i]
+
+class Solution(object):
+    def singleNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        one = 0
+        two = 0
+        for i in nums:
+            one = (one ^ i) & (~two)
+            two = two ^ i & (~one)
+        return one  
