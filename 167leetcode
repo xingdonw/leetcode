@@ -1,0 +1,14 @@
+class Solution(object):
+    def twoSum(self, numbers, target):
+        """
+        :type numbers: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        list2={}                            
+        for i,value in enumerate(numbers):     
+            a=target-value
+            if a in list2:
+                return [list2[a],i+1]         
+            list2[value]=i+1
+  //基本同001，返回的index值加1
