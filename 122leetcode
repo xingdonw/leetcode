@@ -1,0 +1,19 @@
+class Solution(object):
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+        if prices == []:        
+            return 0
+        pro = 0
+        fir = prices[0]
+        for i in range (1,len(prices)):
+            if fir <= prices[i]:
+                pro = pro + (prices[i]-fir)
+                fir = prices[i]
+            else:
+                fir = prices[i]
+        return pro
+        
+        //小额买入，大额卖出
