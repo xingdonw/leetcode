@@ -1,0 +1,18 @@
+class Solution(object):
+    def convertToTitle(self, n):
+        """
+        :type n: int
+        :rtype: str
+        """
+        fin = ""                     //空字符
+        while n > 0 : 
+            yu = n%26                //取余
+            if yu == 0:              //等于0，返回Z，n原值-26
+                ans = "Z"
+                n = n -26
+            else:
+                ans = chr(ord("A")-1+yu)  //ord:得到ASCII字符串A的起始数值（97）-1+余数值，chr：利用位数，返回对应字母
+            fin = fin +ans
+            n = n/26
+        
+        return fin[::-1]  //字符串倒转？
