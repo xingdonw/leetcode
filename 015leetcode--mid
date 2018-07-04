@@ -1,0 +1,40 @@
+class Solution(object):
+    def threeSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        nums.sort().                      //排序
+        res = []                          //输出
+        if len(nums) < 3:                 //长度小于三，返回空
+            return res
+        if nums[0]+nums[1] > 0:           //最小的俩大于0，返回空
+            return res
+        if len(nums) == 3:              
+            if nums[0]+nums[1]+nums[2] == 0:           //长度等于三，恰好和为0，返回这三个数组成的数组；否则返回空
+                temp = [nums[0],nums[1],nums[2]]
+                res.insert(-1,temp)
+                return res
+            else:
+                return res
+        for i in range(0,len(nums)):           //循环
+            if i > 0 and nums[i] == nums[i - 1]:     //避免重复
+                continue
+            rest = 0 - nums[i]    //剩下的值
+            start = i + 1         //起始点i+1，终点最后一个
+            end = len(nums) - 1
+            while start < end:    //起始点小于终点
+                if nums[start] + nums[end] > rest:    //和大于剩余值，终点-1（最大值变小，和变小）
+                    end = end - 1
+                elif nums[start] + nums[end] < rest:  //和小于剩余值，起点+1（最小值变大，和变大）
+                    start = start + 1
+                else:                                 //和等于剩余值，返回这个数组
+                    temp = [nums[i],nums[start],nums[end]]
+                    res.insert(-1,temp)
+                    end = end - 1                     //最大值-1，最小的+1
+                    start = start + 1
+                    while start < end and nums[start] == nums[start-1]:  //起点小于终点并且起点和前一个起点一样，起点+1
+                        start = start + 1
+                    while end > start and nums[end] == nums[end+1]:      //起点小于终点并且终点和前一个终点一样，终点-1
+                        end = end -1
+        return res
