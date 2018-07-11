@@ -13,4 +13,14 @@ class Solution(object):
                 break                           //弹出
          
         return False
-            
+        
+        
+        
+        
+class Solution(object):
+    def containsDuplicate(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        return len(set(nums)) != len(nums)   //set()删除数组重复元素
