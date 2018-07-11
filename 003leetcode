@@ -1,0 +1,15 @@
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        ma = 0
+        begin = 0
+        temp ={}
+        for index,con in enumerate (s):            //枚举，index和内容
+            if con in temp:                        //如果内容存在于中间dictionary，起点begin值change到上一个同值的后一位
+                begin = max (begin,temp[con]+1)
+            temp[con] = index                      //对应内容存在dictionary里他们的index值--位数
+            ma = max(ma,index - begin +1)          //最大长度=取到的index-begin+1
+        return ma
