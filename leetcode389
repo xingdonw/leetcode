@@ -1,0 +1,15 @@
+class Solution(object):
+    def findTheDifference(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: str
+        """
+        s1=0
+        t1=0
+        for i in range(len(s)):
+            s1=s1+ord(s[i])
+        for i in range(len(t)):
+            t1=t1+ord(t[i])
+        k1=t1-s1
+        return chr(k1)
