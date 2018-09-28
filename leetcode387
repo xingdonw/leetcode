@@ -1,0 +1,35 @@
+class Solution:
+    def firstUniqChar(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        s1=[]
+        a=-1
+        for i in range(len(s)):
+            s1.append(ord(s[i])-ord("a"))
+        s2=[0]*26
+        for i in range(len(s1)):
+            s2[s1[i]]=s2[s1[i]]+1   #判断每个字母出现多少次
+        for i in range(len(s)):
+            if (s2[ord(s[i])-ord("a")])==1:
+                a=i
+                break
+        return a
+        
+        
+class Solution:
+    def firstUniqChar(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        min_index = len(s)
+        for c in set(s):
+            l, r = s.find(c), s.rfind(c)
+            if l == r and l != -1 and l < min_index:
+                min_index = l
+        if min_index < len(s):
+            return min_index
+        else:
+            return -1
