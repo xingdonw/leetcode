@@ -24,3 +24,18 @@ class Solution(object):
 如果n = 4层，可以有[1,1,1,1],[1,2,1],[1,1,2],[2,1,1],[2,2] , f(5)  = f(4) + f(3) = 5种方法。
 
 可以发现 f(n) = f(n-1) + f(n-2)
+
+ def climbStairsHelper(self, stepsToTop):
+        
+        answerArray = [1, 1]
+        
+        for i in range(2, stepsToTop + 1):
+            answerArray.append(answerArray[i-1] + answerArray[i-2])
+        return answerArray[stepsToTop]
+    
+ def climbStairs(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        return self.climbStairsHelper(n)
