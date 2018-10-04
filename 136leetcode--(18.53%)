@@ -4,15 +4,15 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        nums.sort()                            //排序
-        if len(nums) == 1:                     //只有一个数，返回这个数
+        nums.sort()                            #排序
+        if len(nums) == 1:                     #只有一个数，返回这个数
             return nums[0]
                 
-        if nums[0] != nums[1]:                //第一位不等于第二位，返回第一位
+        if nums[0] != nums[1]:                 #第一位不等于第二位，返回第一位
             return nums[0]
-        if nums[-1] != nums[-2]:              //倒数第一位不等于倒数第二位，返回倒数第一位
+        if nums[-1] != nums[-2]:               #倒数第一位不等于倒数第二位，返回倒数第一位
             return nums[-1]
-        for i in range (1,len(nums)-1):       //中间位不等于前，后，返回中间位
+        for i in range (1,len(nums)-1):        #中间位不等于前，后，返回中间位
             if nums[i-1] <nums[i] and nums[i]<nums[i+1]:
                 return nums[i]
 
