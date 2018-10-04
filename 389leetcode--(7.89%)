@@ -13,3 +13,18 @@ class Solution(object):
             t1=t1+ord(t[i])
         k1=t1-s1
         return chr(k1)
+
+
+class Solution:
+    def findTheDifference(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: str
+        """
+        lst = [0]*123
+        for i in s:
+            lst[ord(i)] += 1
+        for i in t:
+            lst[ord(i)] -= 1
+        return chr(lst.index(-1))
