@@ -1,0 +1,43 @@
+class Solution(object):
+    def reverse(self, x):
+        """
+        :type x: int
+        :rtype: int
+        """
+        sign=0  #正负号
+        if x<0:
+            sign=-1
+        else:
+            sign=1
+        x=abs(x)
+        k=x
+        a=0
+        while x!=0:
+            a=x%10+a*10  #返回值a=原值的绝对值取余+前a*10
+            x=x/10
+        a=a*sign
+        if k<= 2147483647 and abs(a)<=2147483647:  #原值和返回值绝对值都小于2147483647，32位整数
+            return a
+        else:
+            return 0
+
+
+class Solution(object):
+    def reverse(self, x):
+        """
+        :type x: int
+        :rtype: int
+        """
+        intmax = 2**31
+        sign = 1 if x>0 else -1
+        x = abs(x)
+        ans = x%10
+        x = x/10
+        while x:
+            ans = ans*10
+            ans += x%10
+            x/=10
+        ans = ans*sign
+        if ans < -intmax or ans > (intmax-1):
+            ans = 0
+        return ans
