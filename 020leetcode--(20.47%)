@@ -1,0 +1,46 @@
+class Solution(object):
+    def isValid(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        stack = []
+        d = ["()", "[]", "{}"]
+        for i in range(0, len(s)):
+            stack.append(s[i])                                  #将字符的每一位放入数列
+            if len(stack) >= 2 and stack[-2]+stack[-1] in d:    #if数列大于二，且最后两个相加存在于d数列中
+                stack.pop()                                     #pop移除最后一位  --》运算速度比remove快
+                stack.pop()                                     #pop移除最后一位
+        if len(stack) == 0:                                     #全部删除完毕，则true
+            return True
+        else:
+            return False
+
+
+class Solution:
+    def isValid(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        if not s:
+            return True
+        
+        stack = []
+        openers = {'(', '{', '['}
+        closers = {
+            ')': '(',
+            '}': '{',
+            ']': '[',
+        }
+        for char in s:
+            if char in openers:
+                stack.append(char)
+            elif char in closers:
+                if not stack or stack[-1] != closers[char]:
+                    return False
+                stack.pop()
+            else:
+                raise AssertionError('unknown char on stack: ' + char)
+                
+        return not stack
