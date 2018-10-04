@@ -12,3 +12,19 @@ class Solution(object):
                 return [list2[a],i+1]         
             list2[value]=i+1
   //基本同001，返回的index值加1
+
+
+class Solution:
+    def twoSum(self, numbers, target):
+        """
+        :type numbers: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        dict={}
+        for i in range(0,len(numbers)):
+            compliment=target-numbers[i]
+            if(compliment in dict):
+                return [dict[compliment]+1,i+1]
+            else:
+                dict[numbers[i]]=i
