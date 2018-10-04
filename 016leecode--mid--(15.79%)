@@ -1,0 +1,75 @@
+class Solution:
+    def threeSumClosest(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        nums.sort()                #排序
+        ans = 0
+        diff = 1000000000
+        for i in range(0, len(nums)-2):           #确定第一个数，第二三个数分别为剩下的数的最小值和最大值
+            start, end = i + 1, len(nums) - 1
+            while start < end:
+                sum = nums[i] + nums[start] + nums[end]
+                if sum > target:                  #和大于目标值，且差小于之前的差值，最大值减小一个
+                    if abs(target - sum) < diff:
+                        diff = abs(target - sum)
+                        ans = sum
+                    end -= 1
+                else:                             #和小于目标值，且差小于之前的差值，最大值增大一个
+                    if abs(target - sum) < diff:
+                        diff = abs(target - sum)
+                        ans = sum
+                    start += 1
+        return ans
+
+
+
+class Solution:
+    def threeSumClosest(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        i = 0
+        nums.sort()
+        min_diff = float('inf')
+        result = 0
+        while i < len(nums)-2:
+            if i == 0 or nums[i] != nums[i-1]:
+                j = i + 1
+                k = len(nums) - 1
+                
+                if j < k:
+                    cur_min = nums[i] + nums[j] + nums[j+1]
+                    cur_max = nums[i] + nums[k-1] + nums[k]
+                    if cur_min > target:
+                        if abs(cur_min - target) < min_diff:
+                            result = cur_min
+                        return result
+                    if cur_max < target:
+                        if abs(target - cur_max) < min_diff:
+                            result = cur_max
+                            min_diff = abs(target - cur_max)
+                        i += 1
+                        continue
+                while j < k:
+                    calc = nums[i] + nums[j] + nums[k]
+                    diff = abs(target - calc)
+                    if diff < min_diff:
+                        min_diff = diff
+                        result = calc
+                    if calc < target:
+                        j += 1
+                        while j < k and nums[j] == nums[j-1]:
+                            j += 1       
+                    elif calc > target:
+                        k -= 1
+                        while j < k and nums[k] == nums[k+1]:
+                            k -= 1
+                    else:
+                        return result
+            i += 1
+        return result
