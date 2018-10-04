@@ -1,0 +1,31 @@
+class Solution:
+    def generateMatrix(self, n):
+        """
+        :type n: int
+        :rtype: List[List[int]]
+        """
+        #l=[[0]*n]*n
+        l=[[0] * n for i in range(n)]     #生成全为零的二维数组，ps：不知道上面那个为啥错
+        left,right,up,down=0,n-1,0,n-1    
+        k=1
+        while left<=right:                #按照顺序循环，填写数字
+            for i in range(left,right+1):
+                l[up][i]=k
+                k=k+1
+            up=up+1
+
+            for i in range(up,down+1):
+                l[i][right]=k
+                k=k+1
+            right=right-1
+
+            for i in range(right,left-1,-1):
+                l[down][i]=k
+                k=k+1
+            down=down-1
+            
+            for i in range(down,up-1,-1):
+                l[i][left]=k
+                k=k+1
+            left=left+1
+        return l
