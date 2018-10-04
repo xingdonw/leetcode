@@ -1,8 +1,20 @@
 class Solution(object):
     def twoSum(self, nums, target):
-        list2={}                            //creat a empty dictionary
-        for i,value in enumerate(nums):     //enumerate: 枚举，返回list里每个位置和对应位置的值
+        list2={}                            #creat a empty dictionary
+        for i,value in enumerate(nums):     #enumerate: 枚举，返回list里每个位置和对应位置的值
             a=target-value
             if a in list2:
-                return [list2[a],i]         //返回dictionary里值对应的位置
+                return [list2[a],i]         #返回dictionary里值对应的位置
             list2[value]=i
+
+
+class Solution(object):
+    def twoSum(self, nums, target):
+        dict = {}    
+        for i in range(len(nums)):
+            dict[nums[i]] = i      
+        ## Make a single pass and look for the index of T-x in the array 
+        for i in range(len(nums)):  
+            j = dict.get(target-nums[i], -1)     
+            if j!=-1 and j!=i:     
+                return [i,j]
