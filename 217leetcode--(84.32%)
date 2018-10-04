@@ -4,13 +4,13 @@ class Solution(object):
         :type nums: List[int]
         :rtype: bool
         """
-        if len(nums) == 1 or len(nums) == 0:    //0 or 1,return false
+        if len(nums) == 1 or len(nums) == 0:    #0 or 1,return false
             return False
-        nums.sort()                             //排序
+        nums.sort()                             #排序
         for i in range (0,len(nums)-1):
             if nums[i] == nums[i+1] :
                 return True
-                break                           //弹出
+                break                           #弹出
          
         return False
         
@@ -23,4 +23,4 @@ class Solution(object):
         :type nums: List[int]
         :rtype: bool
         """
-        return len(set(nums)) != len(nums)   //set()删除数组重复元素
+        return len(set(nums)) != len(nums)   #set()删除数组重复元素
