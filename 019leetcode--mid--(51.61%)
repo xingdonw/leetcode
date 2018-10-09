@@ -1,0 +1,58 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def removeNthFromEnd(self, head, n):
+        """
+        :type head: ListNode
+        :type n: int
+        :rtype: ListNode
+        """
+        left=right=head
+        for i in range(n):            #n个，形成n差
+            right=right.next
+        if right == None:             #n的长度大于链表的长度，无效，直接返回原链表
+            return head.next
+        while right.next is not None: #接着上面的right移动，当移动到最后一位，left也移动到应该删除的那一位
+            right=right.next
+            left=left.next
+        left.next=left.next.next
+        return head
+        
+        
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def removeNthFromEnd(self, head, n):
+        """
+        :type head: ListNode
+        :type n: int
+        :rtype: ListNode
+        """
+        #初始化
+        res=ListNode(0)
+        fast=res
+        slow=res
+        res.next=head
+        
+        #让它先走两步
+        for i in range(n+1):
+            fast=fast.next
+            
+        while(fast!=None):
+            fast=fast.next
+            slow=slow.next
+        
+        if slow==None:
+            return res.next
+        
+        slow.next=slow.next.next
+        
+        return res.next
