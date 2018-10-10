@@ -1,0 +1,68 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def isPalindrome(self, head):
+        """
+        :type head: ListNode
+        :rtype: bool
+        """
+        res=None                #反序序列
+        z=p=head
+        l=[]      
+        while z:                #保留正序序列
+            l.append(z.val)
+            z=z.next    
+        while p :               #得到反序列表
+            nextnode=p.next
+            p.next=res
+            res=p
+            p=nextnode      
+        for i in range(0,len(l)):   #判断是否相同
+            if l[i]!=res.val:
+                return False
+                break
+            else:
+                res=res.next
+        return True
+  
+  
+  
+  
+class Solution:
+    def isPalindrome(self, head):
+        """
+        :type head: ListNode
+        :rtype: bool
+        """
+        if not head:
+            return True
+        l = 0
+        node = head
+        while node:
+            l += 1
+            node = node.next
+        if l == 1:
+            return True
+        m = l // 2
+        # Reverse list till m
+        prev, curr = head, head.next
+        m -= 1
+        while m:
+            tmp = curr.next
+            curr.next = prev
+            prev = curr
+            curr = tmp
+            m -= 1
+        if l % 2 != 0:
+            curr = curr.next
+        while curr:
+            if curr.val != prev.val:
+                return False
+            curr = curr.next
+            prev = prev.next
+        return True
+        
