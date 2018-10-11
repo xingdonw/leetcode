@@ -1,0 +1,28 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def partition(self, head, x):
+        """
+        :type head: ListNode
+        :type x: int
+        :rtype: ListNode
+        """
+        if head==None:  
+            return head
+        dummy=ListNode(None)
+        dummy.next=head
+        p=dummy               #p,dummy是head数列
+        t=q=ListNode(None)    #t,q输出队列
+        while p and p.next:
+            if p.next.val < x:        #如果p.next的值小于x，
+                q.next=p.next         #把p.next的值存入q
+                p.next=p.next.next    #p队列跳过这个值，只保存不符合要求的值
+                q=q.next              #q队列向后一位
+            else:
+                p=p.next              #不符合，p队列留下这个值
+        q.next=dummy.next             #符合后面接不符合
+        return t.next
