@@ -1,0 +1,68 @@
+class Solution:
+    def reverseBetween(self, head, m, n):
+        """
+        :type head: ListNode
+        :type m: int
+        :type n: int
+        :rtype: ListNode
+        """
+        count = 1
+        root = ListNode(0)
+        root.next = head
+        pre = root
+        while pre.next and count < m:
+            pre = pre.next                  #pre=[1,2,3,4,5],到m之前删掉
+            count += 1
+        if count < m:
+            return head
+        temp = pre.next                #mNode=[2,3,4,5]
+        l=n-m+1
+        stack=[]
+        for i in range(l):
+            stack.append(temp.val)
+            temp=temp.next
+        while stack:
+            pre.next=ListNode(stack.pop())
+            pre=pre.next
+        pre.next=temp
+        return root.next
+        
+        
+        
+        
+ class Solution:
+    def reverseBetween(self, head, m, n):
+        """
+        :type head: ListNode
+        :type m: int
+        :type n: int
+        :rtype: ListNode
+        """
+        if(head == None):
+            return None
+        
+        pref = None
+        alpha = head
+        while(m > 1):
+            pref = head
+            head = head.next
+            m -= 1
+            n -= 1
+            
+        count = 0
+        curr = head
+        start = head
+        mid = None
+        while(count < n):
+            temp = curr.next
+            curr.next = mid
+            mid = curr
+            curr = temp
+            count += 1
+            
+        start.next = curr
+        if(pref == None):
+            return mid
+        else:
+            pref.next = mid
+            return alpha
