@@ -1,0 +1,70 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def levelOrder(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        """
+        stack=[root]
+        res=[]
+        carry=1
+        if root == None:
+            return []
+        while stack:
+            temp=[]
+            for i in range(len(stack)):
+                topnode=stack.pop(0)                #stack=[]
+                temp.append(topnode.val)            #topnode根节点，val是3
+                if topnode.left:
+                    stack.append(topnode.left)
+                if topnode.right:
+                    stack.append(topnode.right)     #stack=[[9],[20,15,7]],不使用val，是带着各自的子树
+            res.append(temp)
+        return res
+        
+        
+
+
+
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def zigzagLevelOrder(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        """
+        res = []
+        
+        q = []
+        if root:
+            q.append(root)
+        level = 0
+        while q:
+            nextlevel = []
+            cur = []
+            for node in q:
+                cur.append(node.val)
+                if node.left:
+                    nextlevel.append(node.left)
+                if node.right:
+                    nextlevel.append(node.right)
+            if level%2 == 0:
+                res.append(cur)
+            else:
+                res.append(cur[::-1])
+            level += 1
+            q = nextlevel
+        return res
