@@ -1,0 +1,28 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def sumNumbers(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        res=[]
+        def sumpath(root,sumv):                             #定义新的函数求和
+            if root:
+                sumv=sumv+root.val                          #sumv代表每条支路的值
+                if root.left==None and root.right==None:    #如果没有子叶，直接将此支路的值存入数组
+                    res.append(sumv)
+                if root.left:                               #有子叶，继续迭代，但是此时的sumv*10以达到增加一位的效果
+                    sumpath(root.left,sumv*10)
+                if root.right:
+                    sumpath(root.right,sumv*10)
+        sumpath(root,0)                                     #调用函数
+        total=0
+        for i in res:
+            total=total+i
+        return total
