@@ -19,7 +19,7 @@ class Solution:
                 p=p.next
                 q=q.next
             else:
-                p.next=None                 #??  q=q.next.next
+                p.next=None                 #??  q=q.next.next s：不能保证跳过这俩和第三不等
                 val=q.val
                 while q and q.val==val:
                     q=q.next
