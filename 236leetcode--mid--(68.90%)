@@ -1,0 +1,29 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def lowestCommonAncestor(self, root, p, q):
+        """
+        :type root: TreeNode
+        :type p: TreeNode
+        :type q: TreeNode
+        :rtype: TreeNode
+        """
+        if root==None:            
+            return root
+        if root==p or root==q:      #根节点是本身，返回根节点
+            return root
+        
+        left=self.lowestCommonAncestor(root.left, p, q)     #不是，迭代左子，右子节点，存入left，right
+        right=self.lowestCommonAncestor(root.right, p, q)
+        
+        if left!=None and right!=None:    #如果左右都有值，说明p，q在两个子树半区，返回root
+            return root
+        elif left!=None:                  #右子空，左子有值，返回左子节点
+            return left
+        elif right!=None:
+            return right
