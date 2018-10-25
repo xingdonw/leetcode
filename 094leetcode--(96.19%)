@@ -1,0 +1,23 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def inorderTraversal(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        res,stack=[],[]                 #res结果，stack堆栈
+        while root or stack:
+            if root!=None:
+                stack.append(root)      #根节点不为空，根节点压入堆栈，向左节点运动
+                root=root.left
+            else:                       #根节点空，pop出上一节点，并将这一节点加入到res，然后root到root.right
+                node = stack.pop()
+                res.append(node.val)
+                root = node.right
+        return res
