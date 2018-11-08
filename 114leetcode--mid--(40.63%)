@@ -1,0 +1,26 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def flatten(self, root):
+        """
+        :type root: TreeNode
+        :rtype: void Do not return anything, modify root in-place instead.
+        """
+        ans = []
+        def preOrderTravel(root):
+            if not root:
+                return
+            ans.append(root)              #先加根节点，再左节点递归，再右节点递归
+            preOrderTravel(root.left)
+            preOrderTravel(root.right)
+        preOrderTravel(root)              #从根节点开始调用
+        copy = root
+        for i in range(1, len(ans)):      #重新建立一个树，左为none，右依次插入ans
+            copy.left = None
+            copy.right = ans[i]
+            copy = ans[i]
