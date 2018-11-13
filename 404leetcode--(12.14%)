@@ -1,0 +1,55 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def sumOfLeftLeaves(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        res=0
+        if not root:
+            return 0
+        if root.left and not root.left.left and not root.left.right:                    #判断为左叶，值加入res和
+            res = res +root.left.val
+        return res + self.sumOfLeftLeaves(root.left) + self.sumOfLeftLeaves(root.right) #递归左右枝
+        
+
+
+
+ 
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def sumOfLeftLeaves(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        if not root:
+            return 0
+        
+        left, right = 0, 1
+        stack = [(root, right)]
+        sum_left = 0
+        
+        while stack:
+            cur_node, cur_direction = stack.pop()
+            if cur_node.left:
+                stack.append((cur_node.left, left))
+            if cur_node.right:
+                stack.append((cur_node.right, right))
+            if not cur_node.left and not cur_node.right:
+                if cur_direction == left:
+                    sum_left += cur_node.val
+										
+        return sum_left
