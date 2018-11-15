@@ -1,0 +1,22 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def rob(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        def dfs(root):
+            # from bottom to top
+            if not root: return [0, 0]                                      # before layer, no robcurr, robcurr
+            robleft = dfs(root.left)
+            robright = dfs(root.right)
+            norobcurr = robleft[1] + robright[1]
+            robcurr = max(root.val + robleft[0] + robright[0], norobcurr)
+            return [norobcurr, robcurr]
+        return dfs(root)[1]
