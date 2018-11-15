@@ -1,0 +1,66 @@
+Given a binary tree, return the vertical order traversal of its nodes' values. (ie, from top to bottom, column by column).
+If two nodes are in the same row and column, the order should be from left to right.
+
+思路：和水平遍历二叉树类似，我们使用队列层次遍历二叉树，并为每个结点附加一个列信息．然后使用一个map来存储以列号为关键字的结点值．
+最后我们遍历完所有结点之后就会将每一列存储到map的一个列号为关键字的集合中去，然后将其复制到我们要返回的数组中去即可．
+
+Examples:
+Given binary tree [3,9,20,null,null,15,7],
+
+    3
+   / \
+  9  20
+    /  \
+   15   7
+return its vertical order traversal as:
+
+[
+  [9],
+  [3,15],
+  [20],
+  [7]
+]
+Given binary tree [3,9,20,4,5,2,7],
+
+    _3_
+   /   \
+  9    20
+ / \   / \
+4   5 2   7
+
+return its vertical order traversal as:
+
+[
+  [4],
+  [9],
+  [3,5,2],
+  [20],
+  [7]
+]
+
+
+from collections import defaultdict
+class Solution(object):
+    def verticalOrder(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        """
+        def dfs(p, i, j, res):
+            if p:
+                res[j].append((p.val, i))
+                self.leftMost = min(j, self.leftMost)
+                dfs(p.left, i + 1, j - 1, res)
+                dfs(p.right, i + 1, j + 1, res)
+                
+        self.leftMost = float("inf")
+        ans = []
+        res = defaultdict(list)
+        dfs(root, 0, 0, res)
+        i = self.leftMost
+        while True:
+            if not res[i]:
+                break
+            ans.append([item[0] for item in sorted(res[i], key=lambda a:a[1])])
+            i += 1
+        return ans
