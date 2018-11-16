@@ -20,6 +20,6 @@ class Solution(object):
             if level >= len(res):                 #层级>=结果，说明上一层填充完毕，开辟新的一层
                 res.append([])
             res[level].append(node.val)           #在本层中加入值
-            for child in node.children:           #？？？children代表下一层所有的值吗？
+            for child in node.children:           #children代表下一层所有的值吗？--child,是每个变量
                 queue.append((child, level + 1))
         return res
