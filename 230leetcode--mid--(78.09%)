@@ -1,0 +1,29 @@
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def kthSmallest(self, root, k):
+        """
+        :type root: TreeNode
+        :type k: int
+        :rtype: int
+        """
+        stack=[]
+        while True:
+            if root:
+                stack.append(root)    
+                root=root.left
+            else:
+                root=stack.pop()
+                k=k-1
+                if k==0:
+                    return root.val
+                else:
+                    root=root.right
+                    
+#左子叶最小，然后是根节点，然后是右子叶最大                    
+#对于任意一个节点，其值不小于左子树的任何节点，且不大于右子树的任何节点（反之亦可），则为二叉搜索树BST
