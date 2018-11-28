@@ -1,0 +1,18 @@
+class Solution:
+    def findCircleNum(self, M):
+        """
+        :type M: List[List[int]]
+        :rtype: int
+        """
+        def dfs(i,M):
+            for j in range(len(M)):
+                if M[i][j]==1:
+                    M[i][j]=M[j][i]=0     #迭代到j
+                    dfs(j,M)
+        
+        count=0
+        for i in range(len(M)):
+            if M[i][i]==1:
+                count+=1
+                dfs(i,M)
+        return count
