@@ -1,0 +1,32 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def findMode(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        if root==None:
+            return []
+        tmp={}
+        ans=[]
+        def count(root):
+            if root.val in tmp.keys():    #tmp.keys(),字典.keys()-->返回所有的key
+                tmp[root.val]+=1
+            else:
+                tmp[root.val]=1
+            if root.left:
+                count(root.left)
+            if root.right:
+                count(root.right)
+        count(root)
+        mode=max(tmp.values())            #tmp.valuses()，字典.valuses()-->返回所有的value
+        for key,value in tmp.items():     #tmp.items()-->返回key和value
+            if value == mode:
+                ans.append(key)
+        return ans
