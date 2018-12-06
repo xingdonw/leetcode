@@ -1,0 +1,24 @@
+class Solution:
+    def findRedundantConnection(self, edges):
+        """
+        :type edges: List[List[int]]
+        :rtype: List[int]
+        """
+        tree = [-1] * (len(edges) + 1)              #[-1,-1,-1,-1]
+        for edge in edges:                          #[1,2]-->[1,3]-->[2,3]
+            a = self.findRoot(edge[0], tree)        #1(1)-->2(1)-->3(2)
+            b = self.findRoot(edge[1], tree)        #2(2)-->3(3)-->3(3)
+            if a != b:
+                tree[a] = b                         #tree[1]=2-->tree[2]=3
+            else:
+                return edge                         #3=3-->[2,3]
+
+
+    def findRoot(self, x, tree):                    #查并集，找到根节点
+        if tree[x] == -1:
+            return x
+        else:
+            root = self.findRoot(tree[x], tree)
+            tree[x] = root
+            return root
+
