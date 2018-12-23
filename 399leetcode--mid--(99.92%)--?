@@ -1,0 +1,26 @@
+class Solution:
+    def calcEquation(self, equations, values, queries):
+        """
+        :type equations: List[List[str]]
+        :type values: List[float]
+        :type queries: List[List[str]]
+        :rtype: List[float]
+        """
+        table = collections.defaultdict(dict)                   #collection.defaultdict-->简单生成dict
+        for (x, y), value in zip(equations, values):            #zip打包成元素组[(a,b,2.0)]
+            table[x][y] = value
+            table[y][x] = 1.0 / value
+        ans = [self.dfs(x, y, table, set()) if x in table and y in table else -1.0 for (x, y) in queries]   #使用set(),不重复元素
+        return ans
+
+    def dfs(self, x, y, table, visited):
+        if x == y:
+            return 1.0
+        visited.add(x)                              #visited-->set(),代表有记录，访问过x
+        for n in table[x]:
+            if n in visited: continue
+            visited.add(n)
+            d = self.dfs(n, y, table, visited)      #不停递归，先[a,b]-->b=n,再[b,c],有了value
+            if d > 0:                               #？？
+                return d * table[x][n]
+        return -1.0
