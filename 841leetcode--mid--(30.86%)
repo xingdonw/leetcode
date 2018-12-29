@@ -1,0 +1,16 @@
+class Solution:
+    def canVisitAllRooms(self, rooms):
+        """
+        :type rooms: List[List[int]]
+        :rtype: bool
+        """
+        visited = [0] * len(rooms)
+        self.dfs(rooms,0,visited)
+        return sum(visited)==len(rooms)
+        
+        
+    def dfs(self,rooms, i, visited):
+        visited[i]=1                            #开了这个房间，置1
+        for key in rooms[i]:                  
+            if visited[key] == 0 :              #如果房间里的钥匙没被访问过，继续dfs
+                self.dfs(rooms,key,visited)
