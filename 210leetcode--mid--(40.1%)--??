@@ -1,0 +1,30 @@
+class Solution:
+    def findOrder(self, numCourses, prerequisites):
+        """
+        :type numCourses: int
+        :type prerequisites: List[List[int]]
+        :rtype: List[int]
+        """
+        #list[a,b],先上b才能上a-->上课顺序是[b,a]
+        graph=collections.defaultdict(list)
+        visited=[0]*numCourses
+        for u,v in prerequisites:
+            graph[u].append(v)                  #dict{u}=v,u课的前置是v
+        res=[]
+        for i in range(numCourses):
+            if not self.dfs(graph,visited,i,res):
+                return []
+        return res
+        
+    def dfs(self,graph,visited,i,res):
+        if visited[i]==1:
+            return False
+        if visited[i]==2:
+            return True
+        visited[i]=1
+        for k in graph[i]:                      #i的前置课程，k
+            if not self.dfs(graph,visited,k,res):
+                return False
+        visited[i]=2
+        res.append(i)
+        return True
