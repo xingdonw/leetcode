@@ -1,0 +1,18 @@
+class Solution:
+    def allPathsSourceTarget(self, graph):
+        """
+        :type graph: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        m=len(graph)-1      #终点
+        res=[]
+        
+        def dfs(start,path):
+            if start == m:          #起始值==总长，存入结果
+                res.append(path)
+                path=[]
+            for i in graph[start]:
+                dfs(i,path+[i])
+        
+        dfs(0,[0])
+        return res
