@@ -1,0 +1,19 @@
+class Solution:
+    def numDecodings(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        if s=="" or s=="0" or s[0]=="0":                  #s为空，0，或者首字母为0，返回0
+            return 0
+        dp=[1,1]                                          #s是正常的，设置dp=【1，1】，分别代表在最少2位中，每一位均可以有一种情况
+        for i in range(2,len(s)+1):
+            if 10<=int(s[i-2:i])<=26 and s[i-1]!="0":     #前两位在10-26间，但不包括10，20，均有两种情况
+                dp.append(dp[i-1]+dp[i-2])
+            elif int(s[i-2:i])==10 or int(s[i-2:i])==20:  #10，20只有一种情况
+                dp.append(dp[i-2])
+            elif s[i-1]!="0":                             #不在10-26间，但是最后一位不为0，ex：331，只有分开算一种
+                dp.append(dp[i-1])
+            else:                                         #不在10-26间，但是最后一位为0，ex：301，没解
+                return 0
+        return dp[len(s)]                                 #如果只有一位，只有一种情况
