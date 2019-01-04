@@ -1,0 +1,46 @@
+class Solution:
+    def longestPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        '''
+        if len(s)==0:                                   #空
+            return ""
+        k=len(s)
+        count=1                                         #起始长度=1，最短1个
+        res=s[0]
+        for i in range(k):
+            a=k
+            while a>i:
+                l=s[i:a]                                #l=s[i:a]截取一段，m是这一段的倒序，如果相等且字符串长度大于count，更新，break
+                m=l[::-1]
+                if l== m and (a-i+1)>count:
+                    res=s[i:a]
+                    count=a-i+1
+                    break
+                a-=1
+        return res
+        #93/103
+        '''
+        len_s=len(s)
+        start=0
+        end=0
+        res=1
+        if s==s[::-1]:
+            return s
+        else:
+            print ("1")
+            i=0
+            j=1
+            while(i<len_s-res):
+                while (j<len_s):
+                    sample_s=s[i:j+1]
+                    if sample_s==sample_s[::-1]:
+                        res=j+1-i
+                        start=i
+                        end=j
+                    j=j+1
+                i=i+1
+                j=i+res
+            return s[start:end+1]
