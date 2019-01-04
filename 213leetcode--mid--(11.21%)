@@ -1,0 +1,23 @@
+class Solution:
+    def rob(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if len(nums)==1:                        #只有一个，就是本身
+            return nums[0]
+        nofirst=nums[1:]                        #没有第一个
+        nolast=nums[0:-1]                       #没有第二个
+        return max(self.robber(nofirst),self.robber(nolast))    #没有第一个，没有最后一个，最大的
+    
+    def robber(self,nums):
+        if nums==[]:
+            return 0
+        if len(nums)<=2:
+            return max(nums)
+        dp=[0]*len(nums)
+        dp[0]=nums[0]                               
+        dp[1]=max(nums[0],nums[1])                          #起始前两个最大
+        for i in range(2,len(nums)):
+            dp[i]=max(nums[i],nums[i]+dp[i-2],dp[i-1])      #新的开始，求最大max(本身，前一个dp，本身+两个前的dp)
+        return max(dp)
