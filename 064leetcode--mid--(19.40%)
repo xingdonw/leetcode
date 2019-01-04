@@ -1,0 +1,18 @@
+class Solution:
+    def minPathSum(self, grid):
+        """
+        :type grid: List[List[int]]
+        :rtype: int
+        """
+        dp=[[0 for i in range(len(grid[0]))] for j in range (len(grid))]
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                dp[i][j]=grid[i][j]                                         #加本身
+                if (i-1)>=0 and (j-1)>=0:                                   #左上都有，比较取小的
+                    k=min(dp[i-1][j],dp[i][j-1])
+                    dp[i][j]+=k
+                elif (i-1)>=0 and (j-1)<0:                                  #左有上没有，只加左
+                    dp[i][j]+=dp[i-1][j]
+                elif (i-1)<=0 and (j-1)>=0:                                 #上有左没有，只加上
+                    dp[i][j]+=dp[i][j-1]
+        return dp[len(grid)-1][len(grid[0])-1]
