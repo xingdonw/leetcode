@@ -1,0 +1,18 @@
+class Solution:
+    def minimumTotal(self, triangle):
+        """
+        :type triangle: List[List[int]]
+        :rtype: int
+        """
+        l=len(triangle)
+        for i in range(l):
+            for j in range(len(triangle[i])):
+                if (i-1)>=0:                                                        #有上一层
+                    if (j-1)>=0 and j<=(len(triangle[i-1])-1):                      #上一层左右都有，取最小的
+                        triangle[i][j]+=min(triangle[i-1][j-1],triangle[i-1][j])
+                    elif (j-1)>=0 and j>(len(triangle[i-1])-1):                     #上一层只有左，取左
+                        triangle[i][j]+=triangle[i-1][j-1]
+                    elif (j-1)<0 and j<=(len(triangle[i-1])-1):                     #上一层只有右，取右
+                        triangle[i][j]+=triangle[i-1][j]
+        return min(triangle[l-1])
+                
