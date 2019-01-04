@@ -1,0 +1,15 @@
+class Solution:
+    def maxProduct(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        dpmax=dpmin=globalmax=nums[0]
+        for i in range(1,len(nums)):
+            tmpmax=dpmax
+            tmpmin=dpmin
+            dpmax=max(tmpmax*nums[i],tmpmin*nums[i],nums[i])        #最大
+            dpmin=min(tmpmax*nums[i],tmpmin*nums[i],nums[i])        #最小
+            globalmax=max(globalmax,dpmax)                          #总最大
+        return globalmax
+        
