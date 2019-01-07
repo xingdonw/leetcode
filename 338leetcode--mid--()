@@ -1,0 +1,11 @@
+class Solution:
+    def countBits(self, num):
+        """
+        :type num: int
+        :rtype: List[int]
+        """
+        #偶数的二进制中1的个数和其一半的数的二进制个数相等，奇数的二进制中1的个数是其一半的数的二进制中1的个数加1.
+        list=[0]                                   #0中bit分别为0
+        for i in range(1,num+1):
+            list.append(list[i//2]+(i%2))          
+        return list
