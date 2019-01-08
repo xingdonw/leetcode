@@ -1,0 +1,31 @@
+class Solution:
+    def wiggleMaxLength(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """    
+        if nums==[]:
+            return 0
+        dpi=[1]*len(nums)                       #递增dp数组
+        dpd=[1]*len(nums)                       #递减dp数组
+        dp=[0]*len(nums)                        #差值数组
+        for i in range(1,len(nums)):            #求出，每一位上面，最长的的递增和递减的长度，加上它们本身
+            if nums[i]>nums[i-1]:
+                dpi[i]=dpi[i-1]+1
+            elif nums[i]<nums[i-1]:
+                dpd[i]=dpd[i-1]+1
+        for i in range(len(dpi)):               #长度相减，通过正负号表示，他们相对于上一步是递增还是递减
+            dp[i]=dpi[i]-dpd[i]
+        res=2                                   #起始输出为2，即第一个数怎么都有用，排除0以后的tmp的第一个数，怎么也有用
+        tmp=[]
+        for i in range(len(dp)):                #tmp排除0，代表删除前后连续重复的情况，不增不减，没有影响
+            if dp[i]!=0:
+                tmp.append(dp[i])
+        if tmp==[]:                             #tmp空，代表所有数都一样，返回1
+            return 1
+        for i in range(1,len(tmp)):             #对tmp循环判断符号变换，来求最长数组
+            if tmp[i]>0 and tmp[i-1]<0:
+                res+=1
+            if tmp[i]<0 and tmp[i-1]>0:
+                res+=1      
+        return res
