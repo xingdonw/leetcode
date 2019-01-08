@@ -1,0 +1,23 @@
+class Solution:
+    def isSubsequence(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: bool
+        """
+        n=len(s)
+        a=0                                 #每一位s[a]
+        tmp=0                               #tmp=0代表没匹配到相同字母,tmp=1匹配到相同字母
+        while a<n:
+            for i in range(len(t)):
+                if s[a]==t[i]:              #匹配到，t变成之后的所有str，弹出
+                    t=t[i+1:]
+                    tmp=1
+                    break
+            if tmp==1:                      #确认匹配到，tmp重置，没匹配到，false，弹出
+                tmp=0
+            else:
+                return False
+                break
+            a+=1
+        return True
