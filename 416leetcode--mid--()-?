@@ -1,0 +1,42 @@
+class Solution:
+    def canPartition(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        '''
+        #100/104
+        nums.sort()
+        if (sum(nums))%2!=0:                        #和为奇数，不可能平分，return false
+            return False
+        half=(sum(nums))//2                         #每一份值
+        k=len(nums)-1
+        while k>=0:
+            if half-nums[k]>0:
+                half=half-nums[k]
+            elif half-nums[k]==0:
+                return True
+                break
+            k-=1
+        return False
+        '''
+        
+        
+        
+        if nums==[]:                                #空集，返回true
+            return True
+        if sum(nums)%2==1:                          #和为奇数，返回false
+            return False
+        target = sum(nums)//2                       #一半的值
+        dp = [0]*(target+1)                         #每一个值的代表和为i的组合个数，dp【8】，和为8的组合
+        dp[0] = 1
+        for n in nums:
+            i = target
+            while(i>=n):
+                dp[i] = dp[i]+dp[i-n]
+                i = i-1
+        if dp[target]>=2:                           #和为target的组合大于2，有两者组合，可以扽开
+            return True
+        else:
+            return False
+        #用dp[i]来存储和为i的组合个数，对nums里边的数字用n进行遍历，对于所有i>=n的i，有dp[i]=dp[i]+dp[i-n]
