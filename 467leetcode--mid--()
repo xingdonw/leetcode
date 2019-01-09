@@ -1,0 +1,18 @@
+class Solution:
+    def findSubstringInWraproundString(self, p):
+        """
+        :type p: str
+        :rtype: int
+        """
+        dp=[0]*(ord("z")+1)                                                 #创建dp数组，储存以i为结尾的连续字符串最多有多少种情况
+        for i in range(0,len(p)):                                           #每个p中的不重复字母，起始为1
+            if dp[ord(p[i])]==0:
+                dp[ord(p[i])]+=1 
+        tmp=1                                                               #防止abaab，类似ab重复，代表连续相邻字符串长度
+        for i in range(0,len(p)-1):
+            if ord(p[i+1])-ord(p[i])==1 or ord(p[i+1])-ord(p[i])==-25:      #i+1比i大1或者-25（za），tmp+1
+                tmp+=1
+                dp[ord(p[i+1])]=max(dp[ord(p[i+1])],tmp)                    #dp[i+1]更新为，本身或者连续字符串更大的一个值
+            else:
+                tmp=1
+        return sum(dp)                                                      #dp所有情况的和
