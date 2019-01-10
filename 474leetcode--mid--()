@@ -1,0 +1,23 @@
+class Solution:
+    def findMaxForm(self, strs, m, n):
+        """
+        :type strs: List[str]
+        :type m: int
+        :type n: int
+        :rtype: int
+        """
+        dp=[[0 for i in range(n+1)] for j in range(m+1)]                    #dp[n+1][m+1]-->dp["1"]["0"]
+        for k in range(len(strs)):
+            c0=strs[k].count("0",0,len(strs[k]))                            #每个元素，"0","1"个数           
+            c1=strs[k].count("1",0,len(strs[k]))
+            for i in range(m,c0-1,-1):                                      
+            #dp[i][j] = max(dp[i][j], dp[i - zeros][j - ones] + 1),dp[i][j]表示有i个0和j个1时能组成的最多字符串的个数
+                for j in range(n,c1-1,-1):
+                    dp[i][j]=max(dp[i][j],dp[i-c0][j-c1]+1)
+        maximum=0
+        for i in range(m+1):
+            for j in range(n+1):
+                if dp[i][j]>maximum:
+                    maximum=dp[i][j]
+        return maximum
+                    
