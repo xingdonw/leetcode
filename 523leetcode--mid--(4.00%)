@@ -1,0 +1,22 @@
+class Solution:
+    def checkSubarraySum(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: bool
+        """
+        if len(nums)<=1:                        #小于1，没有连续两个，false
+            return False
+        if k==0 and sum(nums)!=0:               #除数k=0，nums和不为0，false
+            return False
+        elif k==0 and sum(nums)==0:             #除数k=0，nums和=0，false
+            return True
+        dp=nums                                 #dp初始状态
+        for i in range(len(nums)-1):
+            count=1                             
+            for j in range(i+1,len(nums)):      #下一个开始
+                count+=1
+                dp[i]+=nums[j]
+                if dp[i]%k==0:
+                    return True
+        return False
