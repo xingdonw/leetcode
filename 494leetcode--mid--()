@@ -1,0 +1,64 @@
+class Solution:
+    def findTargetSumWays(self, nums, S):
+        """
+        :type nums: List[int]
+        :type S: int
+        :rtype: int
+        """
+        if len(nums)==1 and abs(S)==nums[0]:                                                #初始数组只有一个,回0，1,S可正可负
+            return 1
+        if len(nums)==1 and abs(S)!=nums[0]:
+            return 0
+        if S>(sum(nums)) or S<(-sum(nums)):                                                 #临届点达不到s，回0
+            return 0
+        dp=[[0 for i in range(sum(nums)*2+1)] for j in range(len(nums))]                    #dp[i][j]保存第i轮，和为j的情况数量总和
+        dp[0][-nums[0]+sum(nums)]=1                                                         #初始第一轮，直接加一
+        dp[0][nums[0]+sum(nums)]=1
+        if nums[0]==0:                                                                      #如果第一个数为0，那么相当于有两次，+0，-0
+            dp[0][nums[0]+sum(nums)]=2
+        for i in range(0,len(nums)-1):                                                      #剩下和-1轮次
+            a=-nums[i+1]                                                                    #a，b代表本轮要加的两个数（相当于i+1的数）
+            b=nums[i+1]
+            for j in range(0,sum(nums)*2+1):                                                #对所有本轮有值的数+a，b，dp出下一轮结果
+                if dp[i][j]!=0:
+                    dp[i+1][j+a]=dp[i+1][j+a]+dp[i][j]
+                    dp[i+1][j+b]=dp[i+1][j+b]+dp[i][j]
+        return dp[len(nums)-1][S+sum(nums)]                                                 #返回最后一轮目标为s的结果      
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        #59/139,把每一轮所有情况储存，之后查相等的值的个数
+        '''
+        dp=[]
+        dp.append(nums[0])
+        dp.append(-nums[0])
+        for i in range(1,len(nums)):
+            a=nums[i]
+            b=-nums[i]
+            tmp=[]
+            for j in range(len(dp)):
+                tmp.append(a+dp[j])
+                tmp.append(b+dp[j])
+            dp=tmp
+        count=0
+        for k in dp:
+            if k==S:
+                count+=1
+        return count
