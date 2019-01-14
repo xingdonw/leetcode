@@ -1,0 +1,27 @@
+class Solution:
+    def findPaths(self, m, n, N, i, j):
+        """
+        :type m: int
+        :type n: int
+        :type N: int
+        :type i: int
+        :type j: int
+        :rtype: int
+        """
+        dp=[[0]*n for _ in range(m)]                                    #[[0,0],[0,0]]
+        dp[i][j]=1                                                      #初始位置=1
+        res=0                                                           #结果
+        step=[(-1,0),(1,0),(0,1),(0,-1)]                                #4种可能性
+        for u in range(N):                                              #最多N步
+            tmp=[[0]*n for _ in range(m)]                               #tmp每一步的临时数组
+            for p in range(m):                                          
+                #p,q遍历，如果dp[p][q]>=1，每种step，出了边界，结果+dp[p][q]的值，因为有重复！！同样，更新dp也+dp[p][q]，重复都算！！！
+                for q in range(n):
+                    if dp[p][q]>=1:
+                        for (a,b) in step:
+                            if p+a<0 or p+a>=m or q+b<0 or q+b>=n:
+                                res+=int(dp[p][q])
+                            else:
+                                tmp[p+a][q+b]+=int(dp[p][q])
+            dp=tmp
+        return res% (10**9 + 7)                                       #The answer may be very large, return it after mod 109 + 7
