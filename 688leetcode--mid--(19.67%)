@@ -1,0 +1,24 @@
+class Solution:
+    def knightProbability(self, N, K, r, c):
+        """
+        :type N: int
+        :type K: int
+        :type r: int
+        :type c: int
+        :rtype: float
+        """
+        dp = [[0] * N for _ in range(N)]                                    #[[0,0,0],[0,0,0],[0,0,0]]
+        dp[r][c]=1                                                          #初始状态概率为1
+        step=[(2,1),(2,-1),(1,2),(1,-2),(-2,1),(-2,-1),(-1,2),(-1,-2)]      #8种可能
+        for m in range(K):                                                  #k步以内
+            tmp= [[0]*N for l in range(N)]                                  #每一步的临时dp
+            for i in range(N):                                              #遍历dp中每一个格子，求其在这一步的概率，是否越界
+                for j in range(N):
+                    for (q,p) in step:
+                        if 0<=(i+q)<N and 0<=(j+p)<N:                       #没越界，新的落脚点=上一步1/8的概率，有很多可能重复，+在一起
+                            tmp[i+q][j+p]+=dp[i][j]/8
+            dp=tmp                                                          #更新dp
+        res=0
+        for i in range(N):                                                  #dp中所有的概率和，就是结果
+            res+=sum(dp[i])
+        return res
