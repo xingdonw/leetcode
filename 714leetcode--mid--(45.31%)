@@ -1,0 +1,13 @@
+class Solution:
+    def maxProfit(self, prices, fee):
+        """
+        :type prices: List[int]
+        :type fee: int
+        :rtype: int
+        """
+        cash=0                                  #手里没股票
+        hold=-prices[0]                         #手里有股票
+        for i in range(1,len(prices)):
+            cash=max(cash,hold+prices[i]-fee)   #这一步操作完没股票，原来就没股票and卖了股票，大的
+            hold=max(hold,cash-prices[i])       #这一步操作完有股票，原来就有股票，没股票买了股票
+        return cash
