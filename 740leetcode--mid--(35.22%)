@@ -1,0 +1,18 @@
+class Solution:
+    def deleteAndEarn(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if nums==[]:
+            return 0
+        l=max(nums)
+        save=[0]*(l+1)
+        for i in nums:                          #save存储每个数字的个数
+            save[i]+=1
+        dp=[0]*(l+1)
+        dp[1]=save[1]                           #dp[1]的值
+        for i in range(2,len(save)):            #从2开始
+            dp[i]=save[i]*i+max(dp[:i-1])       #dp[i]=i本身的所有和+dp[i-2]之前最大的值
+        return max(dp)
+
