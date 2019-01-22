@@ -1,0 +1,81 @@
+class Solution:
+    def orderOfLargestPlusSign(self, N, mines):
+        """
+        :type N: int
+        :type mines: List[List[int]]
+        :rtype: int
+        """
+        ttmp=[[1 for i in range(N)]for j in range(N)]
+        ltmp=[[1 for i in range(N)]for j in range(N)]
+        dp=[[1 for i in range(N)]for j in range(N)]
+        for k in mines:                                   #把二维数组建立好，每个点起始位1，除了0
+            dp[k[0]][k[1]]=0
+            ttmp[k[0]][k[1]]=0
+            ltmp[k[0]][k[1]]=0
+
+        for i in range(1,N-1):
+            t,d,l,r=0,0,0,0
+            for j in range(1,N-1):
+                tmp=dp[i][j]
+
+                if dp[i-1][j]!=0:
+                    t=dp[i-1][j]+1
+                else:
+                    t=0
+                    
+                if ttmp[i][j]!=0:
+                    ttmp[i][j]+=ttmp[i-1][j]
+
+                if dp[i][j-1]!=0:
+                    l=dp[i][j-1]+1
+                else:
+                    l=0
+                
+                if ltmp[i][j]!=0:
+                    ltmp[i][j]+=ltmp[i][j-1]                
+                '''
+                a,b=i,j
+                t,l=0,0
+                while b>=0:
+                    if dp[i][b]!=0:
+                        l+=1
+                    else:
+                        break
+                    b-=1
+                
+                while a>=0:
+                    if dp[a][j]!=0:
+                        t+=1
+                    else:
+                        break
+                    a-=1
+                '''
+                x,y=i,j
+                d,r=0,0
+                while y<=N-1:
+                    if dp[i][y]==1:
+                        r+=1
+                    else:
+                        break
+                    y+=1
+                
+                while x<=N-1:
+                    if dp[x][j]==1:
+                        d+=1
+                    else:
+                        break
+                    x+=1
+                t=max(ttmp[i][j],t)
+                l=max(ltmp[i][j],l)
+                dp[i][j]=min(t,d,l,r)
+                if dp[i][j]==0:
+                    dp[i][j]=tmp
+
+        res=0
+        for i in range(len(dp)):
+            res=max(res,max(dp[i]))
+        return res
+        
+        
+  52/58 超时？？？
+  
