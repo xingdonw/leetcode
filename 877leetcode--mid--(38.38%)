@@ -1,0 +1,40 @@
+class Solution:
+    def stoneGame(self, piles):
+        """
+        :type piles: List[int]
+        :rtype: bool
+        """
+        N = len(piles)
+        dp = [[0 for _ in range(N)]for _ in range(N)]
+        for i in range(N):
+            dp[i][i] = piles[i]
+        for left in range(N-2,-1,-1):
+            for right in range(left+1,N):
+                choseLeft = piles[left] - dp[left+1][right]         #选择左，看看选左之后的差值，同理右
+                choseRight = piles[right] - dp[left][right-1]
+                dp[left][right] = max(choseLeft,choseRight)         #等同于最大差值
+        if dp[0][N-1] >= 0:
+            return True
+        else:
+            return False 
+
+
+动态规划，建立二维数组dp[N][N],其中N为piles数组长度。
+
+
+dp[ i ][ j ]表示在piles中下标 i 至下标 j 之间的亚力克斯所拿石子总数和李所拿石子总数之差
+
+dp[ i ][ j ] > 0 时亚历克斯拿的石子数目大于李，亚力克斯胜利，否则李胜利
+
+dp的初始状态是 i = j 即只有一个石子堆，由于亚历克斯先拿，则 dp[ i ][ j ] = piles[ i ]
+
+当亚历克斯拿了最左边下标为 i 的石子后，亚历克斯和李的石子数之差为 piles[ i ] - dp[ i+1 ][ j ], 当亚历克斯拿了最右边下标为j的那堆石子后，亚历克斯和李的石子数之差为 piles[ j ] - dp[ i ][ j-1 ], 取其中较大者为新的最优解。
+动态转移方程:
+-dp[ i ][ j ] = max( piles[ i ] - dp[ i+1 ][ j ], piles[ j ] - dp[ i ][ j-1 ])
+
+本题递归求解存在超时问题故用非递归方法实现
+
+作者：LENN123
+链接：https://www.jianshu.com/p/94b64b09356c
+來源：简书
+简书著作权归作者所有，任何形式的转载都请联系作者获得授权并注明出处。
