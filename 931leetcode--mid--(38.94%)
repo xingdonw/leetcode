@@ -1,0 +1,17 @@
+class Solution:
+    def minFallingPathSum(self, A):
+        """
+        :type A: List[List[int]]
+        :rtype: int
+        """
+        n=len(A)
+        for i in range(1,n):
+            for j in range(n):
+                a,c=float("inf"),float("inf")   #无穷取大
+                if (j-1)>=0:                    #左上有，a是本身+左上
+                    a=A[i][j]+A[i-1][j-1]
+                if (j+1)<n:                     #右上有，a是本身+右上
+                    c=A[i][j]+A[i-1][j+1]
+                b=A[i][j]+A[i-1][j]             #b本身+上
+                A[i][j]=min(a,b,c)              #最小值
+        return min(A[n-1])
