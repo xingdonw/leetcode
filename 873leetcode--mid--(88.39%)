@@ -1,0 +1,25 @@
+class Solution:
+    def lenLongestFibSubseq(self, A):
+        """
+        :type A: List[int]
+        :rtype: int
+        """
+        #A=[1,3,5]
+        dic={}
+        res=0
+        for index,num in enumerate(A):                          #[1,2,3,4,5,6,7,8]
+            dic[num]=index                                      #dic[值]=顺序 dic[2]=1
+        dp=[[2 for i in range(len(A))]for j in range(len(A))]   
+        #DP[i][j]数组的含义是，以i和j为结尾两个数字的费布拉奇数列长度（i < j），起始都是2个长度
+        for i in range(len(A)):
+            for j in range(i+1,len(A)):
+                theta=A[j]-A[i]                                 #任意两个数的差值
+                if theta>=A[i]:                                 #如果比相对小的数大，掠过
+                    break
+                if theta in dic:                                #比这两个数小的情况，得到在A中的序号，两者+1
+                    m=dic[theta]
+                    dp[i][j]=dp[m][i]+1
+                    res = max(res, dp[i][j])                    #求最大值
+
+        return res
+
