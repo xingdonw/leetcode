@@ -1,0 +1,80 @@
+class Solution:    
+    def solve(self,A,B,visited):
+        if A<=0 and B>0:
+            return 1.0
+        elif A<=0 and B<=0:
+            return 0.5
+        elif A>0 and B<=0:
+            return 0.0
+        
+        if (A,B) in visited:
+            return visited[(A,B)]
+        
+        visited[(A,B)]=0.25*(self.solve(A-100,B,visited)+self.solve(A-75,B-25,visited)+self.solve(A-50,B-50,visited)+self.solve(A-25,B-75,visited))
+        
+        return visited[(A,B)]
+    
+    def soupServings(self, N):
+        visited = {}
+        return N > 4800 and 1 or self.solve(N, N, visited)
+        if N>10^9:
+            return 1.0
+        else:
+            return self.solve(N,N,visited)      
+'''   
+
+class Solution:        
+    def solve(self,pro,A,B):
+        res=0.0
+        lol=[]
+        if (A-100)>0 and B>0:
+            tmp=pro*0.25
+            self.solve(tmp,A-100,B)
+        if (A-75)>0 and (B-25)>0:
+            tmp=pro*0.25
+            self.solve(tmp,A-75,B-25)
+        if (A-50)>0 and (B-50)>0:
+            tmp=pro*0.25
+            self.solve(tmp,A-50,B-50)
+        if (A-25)>0 and (B-75)>0:
+            tmp=pro*0.25
+            self.solve(tmp,A-25,B-75)
+                
+        if (A-100)<=0 and B>0:
+            res+=pro*0.25
+
+        if (A-100)<=0 and B<=0:
+            res+=pro*0.25*0.5
+
+        if (A-75)<=0 and (B-25)>0:
+            res+=pro*0.25
+
+        if (A-75)<=0 and (B-25)<=0:
+            res+=pro*0.25*0.5
+
+        if (A-50)<=0 and (B-50)>0:
+            res+=pro*0.25
+
+        if (A-50)<=0 and (B-50)<=0:
+            res+=pro*0.25*0.5
+
+        if (A-25)<=0 and (B-75)>0:
+            res+=pro*0.25
+
+        if (A-25)<=0 and (B-75)<=0:
+            res+=pro*0.25*0.5
+
+            
+        return res
+    
+    def soupServings(self, N):
+        """
+        :type N: int
+        :rtype: float
+        """  
+        pro=1.0
+        N=100
+        return N > 4800 and 1 or self.solve(pro,N, N)
+           
+'''            
+              
