@@ -1,0 +1,33 @@
+class Solution:
+    def maximalRectangle(self, matrix):
+        """
+        :type matrix: List[List[str]]
+        :rtype: int
+        """
+        if len(matrix)==0:                                                          #空集，返回0
+            return 0
+        res=[]                                                                      #res结果，代表每层做大面积的数
+        for i in range(len(matrix)):
+            for j in range(len(matrix[0])):
+                if (i-1)>=0 and matrix[i][j]=="1" and matrix[i-1][j]!=0:            #有上一层，本身是1，上一层不为0
+                    matrix[i][j]=int(matrix[i][j])+int(matrix[i-1][j])              #更新为最长的高度
+                else:
+                    matrix[i][j]=int(matrix[i][j])                                  #转为整型，matrix变更为高度矩阵
+        
+        for i in range(len(matrix)):
+            res.append(self.largest(matrix[i]))                                     #每一层调用，计算最大面积，同84算法
+        return max(res)
+
+
+    def largest(self,height):
+        larg=height[0]
+        for i in range(len(height)):                            #暴力算法，挨个计算
+            min=height[i]                                       #起始点
+            for j in range(i,len(height)):
+                if height[j]<min:                               #右边<最小值，最小值更新，同时计算此时面积，和最大比较
+                    min=height[j]                                   
+                    larg=max(larg,(j-i+1)*min)
+                else:
+                    larg=max(larg,(j-i+1)*min)
+        return larg
+                    
