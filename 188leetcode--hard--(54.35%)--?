@@ -1,0 +1,27 @@
+class Solution:
+    def maxProfit(self, k, prices):
+        """
+        :type k: int
+        :type prices: List[int]
+        :rtype: int
+        """
+        if len(prices)<2:                           #只有一个或者没有价格，那就0最好
+            return 0
+        if k>(len(prices)//2):                      #交易的次数大于价格的总数，怎么挣钱怎么来,只要有挣钱的机会就交易
+            total=0
+            for i in range(1,len(prices)):
+                if prices[i]>prices[i-1]:
+                    total+=prices[i]-prices[i-1]
+            return total
+        
+        l=[0]*(k+1)
+        g=[0]*(k+1)
+        for i in range(len(prices)-1):
+            prof=prices[i+1]-prices[i]
+
+            for j in range(k, 0, -1):
+                l[j] = max(g[j - 1] + max(prof, 0), l[j] + prof)
+                g[j] = max(l[j], g[j])
+
+        return g[-1]
+
