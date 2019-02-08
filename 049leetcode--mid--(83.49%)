@@ -1,0 +1,26 @@
+class Solution:
+    def groupAnagrams(self, strs: 'List[str]') -> 'List[List[str]]':
+        tmp=[]
+        dic=[]
+        res={}
+        ans=[]
+        for i in range(len(strs)):
+            if strs[i]!="":                     #不为空的字符串
+                tmp=[j for j in strs[i]]        #tmp拆开，重新排序，然后合并，插入临时array
+                tmp.sort()
+                lol=tmp[0]
+                for k in range(1,len(tmp)):
+                    lol+=tmp[k]
+                dic.append(lol)
+            else:                               #空的时候，直接把空字符插入
+                dic.append("")
+
+        for i in range(len(dic)):
+            if dic[i] not in res:               #字典里没有这个key，字典插入这个key同时这个key的value.append进去
+                res[dic[i]]=[strs[i]]
+            else:
+                res[dic[i]].append(strs[i])         
+        
+        for key in res:                         #提取每个key，插入输出数组
+            ans.append(res[key])
+        return ans
