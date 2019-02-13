@@ -1,0 +1,30 @@
+class Solution(object):
+    def ladderLength(self, beginWord, endWord, wordList):
+        """
+        :type beginWord: str
+        :type endWord: str
+        :type wordList: Set[str]
+        :rtype: int
+        """
+        wordict=set(wordList)       #{'dog', 'log', 'hot', 'dot', 'lot'}    
+        if endWord not in wordList: #如果endword不再字典里，return 0
+            return 0
+        s1={beginWord}              #s1={"hit"}
+        s2={endWord}                #s2={"cog"}
+        step=0
+
+        wordict.remove(endWord)     #删除最后一个单词
+        while len(s1)>0 and len(s2)>0:
+            step+=1                 #起始本身为1步
+            s=set()
+            for word in s1:
+                nexword=[word[:i]+c+word[i+1:] for c in "abcdefghijklmnopqrstuvwxyz" for i in range(len(beginWord)) ]
+                #nexword代表替换起始单词中的一个字母
+                for w in nexword:
+                    if w in s2:             #替换完之后为结尾单词，+1步，返回
+                        return step+1
+                    if w in wordict:        #不为最后一个词，在序列中，序列删除这个单词，变换数列加入这个单词，代表访问过
+                        wordict.remove(w)
+                        s.add(w)
+            s1=s    #起始更新，因为step已经+1，最先return就结束
+        return 0
