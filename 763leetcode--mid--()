@@ -1,0 +1,24 @@
+class Solution:
+    def partitionLabels(self, S: 'str') -> 'List[int]':
+        a=set(S)                                #看看有多少种字母
+        k=list(a)                               #转为list
+        index=[]                                #记录每个字母最后出现的位置
+        for i in range(len(k)):
+            z=-1
+            while z<0:                          #从后往前找最后出现的位置记录
+                if S[z]==k[i]:
+                    index.append(len(S)+z+1)    
+                    z=100
+                else:
+                    z-=1
+        index.sort()                            #排序
+        res=[]                                  #储存结果
+        l=0                                     #代表前一段可以摘出的长度
+        for i in range(len(index)):
+            tmp=S[:index[i]]                    #挨个看，最后出现的字母前面的字符串，有几种字母
+            tmp1=set(tmp)
+            if (i+1)==len(tmp1):                #如果个数相同，记录
+                res.append(index[i]-l)
+                l=index[i]
+        return res
+            
