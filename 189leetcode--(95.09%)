@@ -1,0 +1,8 @@
+class Solution:
+    def rotate(self, nums: 'List[int]', k: 'int') -> 'None':
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        k=k%len(nums)                                           #取余数，防止重复循环
+        nums[:]=nums[(len(nums)-k):]+nums[:(len(nums)-k)]       #截取，重新更换
+        
