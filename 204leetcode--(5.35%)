@@ -1,0 +1,15 @@
+class Solution:
+    def countPrimes(self, n: 'int') -> 'int':
+        if n<2:                     #小于2没有，0
+            return 0
+        else:
+            res=[1]*n               #res数组，非质数=0，质数=1，目的是为了省运算空间，替代remove
+            res[0]=0
+            res[1]=0
+        for i in range(2,n):
+            k=2                     #k=倍数
+            while (i*k)<n:          #挨个遍历，如果小于n，并且res[i*k]=1，置0
+                if res[i*k]==1:
+                    res[i*k]=0
+                k+=1                #倍数+1
+        return sum(res)             #和，就是总个数
