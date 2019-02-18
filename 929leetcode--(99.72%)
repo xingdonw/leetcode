@@ -1,0 +1,7 @@
+        res=[]
+        for i in range(len(emails)):
+            a,b=emails[i].split("@")    #a,b分割出local和domain
+            a=a.split("+")[0]           #a中以第一个“+”为界限分割出有效local
+            a="".join(a.split("."))     #"x".join(...),代表以x为分隔符链接。。。,a.split(".")将a以"."为分隔，分开，在连接上
+            res.append(a+b)         
+        return len(set(res))
