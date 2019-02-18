@@ -1,0 +1,25 @@
+class Solution:
+    def totalFruit(self, tree: 'List[int]') -> 'int':
+        dp=[0 for i in range(len(tree))]                #记录连续最长个数
+        dp[0]=1                                         #第一个为1
+        tmp=[tree[0]]                                   #记录当前连续最长数组是什么
+        num=len(set(tmp))                               #num记录此数组里有几个类数字
+        start=0                                         #起点
+        for i in range(1,len(dp)):
+            if tree[i] in tmp and num <= 2:             #新元素在tmp里，且类小于2，直接加一，更新tmp
+                dp[i]=dp[i-1]+1
+                tmp.append(tree[i])
+            elif tree[i] not in tmp and num == 1:       #新元素不在tmp里，但是类为1，相当于新加元素，直接加一，更新tmp，num
+                dp[i]=dp[i-1]+1
+                num=2
+                start=i
+                tmp.append(tree[i])
+            else:                                       #新元素大于2，重新寻找，从start开始遍历，当类为2的时候，即为以当前元素为结尾最大的长度
+                for k in range(start,i):
+                    if len(set(tree[k:i+1])) == 2:
+                        dp[i]=len(tree[k:i+1])
+                        start=k
+                        tmp=tree[k:i+1]
+                        break
+        return max(dp)
+                
