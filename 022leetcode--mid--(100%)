@@ -1,0 +1,13 @@
+class Solution:
+    def generateParenthesis(self, n: 'int') -> 'List[str]':
+        res=[]
+        self.parentheses(n,n,"",res)
+        return res
+        
+    def parentheses(self,left,right,str,res):
+        if left==0 and right==0:
+            res.append(str)
+        if left>0:
+            self.parentheses(left-1,right,str+"(",res)
+        if right>left:
+            self.parentheses(left,right-1,str+")",res)
