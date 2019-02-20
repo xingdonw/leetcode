@@ -1,0 +1,12 @@
+class Solution:
+    def subarraySum(self, nums: 'List[int]', k: 'int') -> 'int':
+        dic=collections.defaultdict(int)        #dic
+        dic[0]=1                                #和为0，有一个，起始
+        total=0
+        res=0
+        for i in range(len(nums)):
+            total+=nums[i]                      #+nums[i],新和,因为total是所有的数值相加，所以不可能是不连续的
+            if (total-k) in dic:                #total-k，这个值存在在dic中的个数，就是res
+                res+=dic[total-k]
+            dic[total]+=1                       
+        return res
