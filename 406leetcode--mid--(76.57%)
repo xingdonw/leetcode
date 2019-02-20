@@ -1,0 +1,21 @@
+class Solution(object):
+    def reconstructQueue(self, people):
+        """
+        :type people: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        people.sort(key =lambda x:x[1])                         #先排序，按照k的大小排序
+        dic = collections.defaultdict(list)                     #字典，高度，结果
+        height, res = [], []
+        for i in range(len(people)):
+            if people[i][0] in dic:                             #索引h在dic中，加入他们的k值，前面排序过，按照从小到大来
+                dic[people[i][0]].append(people[i][1])
+            else:
+                dic[people[i][0]]=[people[i][1]]                #没有，插入数组，height也插入
+                height.append(people[i][0])
+        height.sort()
+        height.reverse()                                        #高度从大到小，排序
+        for h in height:                                        #从高的开始排序，防止k相等
+            for k in dic[h]:
+                res.insert(k,[h,k])
+        return res
