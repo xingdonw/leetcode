@@ -1,0 +1,18 @@
+class Solution(object):
+    def numSquares(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        if n==0:
+            return 0
+        dp=[float("inf")]*(n+1)
+        dp[0]=0
+        dp[1]=1
+        for i in range(2,n+1):
+            j=1
+            while (j*j) <= i:                           #j*j
+                dp[i]=min(dp[i],dp[i-j*j]+1)            #1代表，如果j*j小于i，前一个平方根情况+rest value，等于，即dp[0]+1种
+                j+=1
+        return dp[-1]
+
