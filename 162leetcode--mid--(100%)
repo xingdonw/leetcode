@@ -1,0 +1,16 @@
+class Solution(object):
+    def findPeakElement(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if len(nums) < 2:                                   #小于2个，返回0
+            return 0
+        nums.append(-float("inf"))                          #右边加上一个（-inf）
+        i=1
+        while i<len(nums)-1:                                
+            if nums[i] > nums[i-1] and nums[i] >nums[i+1]:  #比左右大，返回这个位置index
+                return i
+                break
+            i+=1
+        return 0
