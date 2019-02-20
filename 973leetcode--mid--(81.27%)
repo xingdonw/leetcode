@@ -5,6 +5,10 @@ class Solution(object):
         :type K: int
         :rtype: List[List[int]]
         """
+        points.sort(key=lambda x: x[0]**2+x[1]**2)
+        return points[:K]
+        
+        
         dic = collections.defaultdict(list)         #字典
         l=[]                                        #储存距离
         res=[]                                      #储存结果
