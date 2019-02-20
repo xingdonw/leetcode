@@ -1,0 +1,24 @@
+class Solution(object):
+    def wallsAndGates(self, rooms):
+        """
+        :type rooms: List[List[int]]
+        :rtype: void Do not return anything, modify rooms in-place instead.
+        """
+        if rooms == []:
+            return                                                                  #空的，不反回
+        row = len(rooms)
+        col = len(rooms[0])
+        q = collections.deque([])
+
+        q = [(i,j) for i in range(row) for j in range(col) if rooms[i][j] == 0]     #q存储为0的位置，从此开始
+        
+        for x,y in q:                                                               
+            dis = rooms[x][y] + 1                                                   #距离，是这个值的本身+1
+            delta = [(1,0),(-1,0),(0,1),(0,-1)]                                     #4个方向
+            for u,v in delta:
+                dx = x+u                                                            #新坐标
+                dy = y+v
+                if 0<= dx <row and 0<= dy <col and rooms[dx][dy] == 2147483647:     #在界内，切为inf
+                    rooms[dx][dy] = dis                                             #更新距离，并且把这个坐标存入q
+                    q.append((dx,dy))
+
