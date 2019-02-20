@@ -1,0 +1,22 @@
+class Solution(object):
+    def kClosest(self, points, K):
+        """
+        :type points: List[List[int]]
+        :type K: int
+        :rtype: List[List[int]]
+        """
+        dic = collections.defaultdict(list)         #字典
+        l=[]                                        #储存距离
+        res=[]                                      #储存结果
+        for p in points:
+            dis = math.sqrt(p[0]**2 + p[1]**2)      #dis是距离
+            if dis not in dic:                      #字典里没有，生成
+                dic[dis] = [p]
+            else:                                   #字典里有，加入p
+                dic[dis].append(p)
+            l.append(dis)
+        l.sort()                                    #距离排序
+        for i in range(K):                          #找最小的个数
+            for j in dic[l[i]]:
+                res.append(j)
+        return res[:K+1]                            #防止一个长度有多个而越界
