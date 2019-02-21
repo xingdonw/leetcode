@@ -1,0 +1,24 @@
+class Solution(object):
+    def decodeString(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        curnum = 0
+        curstring = ''
+        stack = []
+        for char in s:
+            if char == '[':                                 #"["，将现在的string和num，append，置为空字符和0
+                stack.append(curstring)
+                stack.append(curnum)
+                curstring = ''
+                curnum = 0
+            elif char == ']':                               #"]"，弹出之前的string和num，新的string更新为原来的+num*现在的string
+                prenum = stack.pop()
+                prestring = stack.pop()
+                curstring = prestring + prenum * curstring
+            elif char.isdigit():                            #如果是数字，得到倍数，为curnum
+                curnum = curnum * 10 + int(char)
+            else:                                           #不是数字，也不是"["""]"，即为内容
+                curstring += char
+        return curstring
