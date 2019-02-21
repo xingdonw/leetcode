@@ -1,0 +1,18 @@
+class Solution(object):
+    def search(self, reader, target):
+        """
+        :type reader: ArrayReader
+        :type target: int
+        :rtype: int
+        """
+        left = 0 
+        right = 20000
+        while left <= right:
+            index = (left+right)//2             #中心
+            if reader.get(index) < target:      #中心点的值 < target，左端点向右
+                left = index+1
+            elif reader.get(index) > target:    #中心点的值 > target，右端点向左
+                right = index-1
+            else:
+                return index                    #正好，返回index
+        return -1
