@@ -1,0 +1,31 @@
+class Solution(object):
+    def findItinerary(self, tickets):
+        """
+        :type tickets: List[List[str]]
+        :rtype: List[str]
+        """
+        result = ["JFK"]
+
+        dic = collections.defaultdict(list) 
+        for flight in tickets:                                  #建立，起始与结束的对应关系字典
+            dic[flight[0]] += flight[1],
+
+        self.dfs_helper(dic, "JFK", result, len(tickets))
+
+        return result
+
+    def dfs_helper(self, dic, departure, result, flights):
+        if len(result) == flights + 1:                          #dfs出口，条件成立表示找到了最终的结果
+            return result
+
+        currentDst = sorted(dic[departure])                     #排序最近的dep地点
+        for dst in currentDst:                                  #loop所有的目的地
+            dic[departure].remove(dst)                          #使用一个，删除一个，把这个结果放入输出序列
+            result.append(dst)
+
+            valid = self.dfs_helper(dic, dst, result, flights)  #dfs，对每个目的地进行loop
+            if valid:                                           #递归得到dfs的值。如果当前dst没有目的地，会返回None
+                return valid
+
+            result.pop()                                        #回复步骤。如果返回的是None，就把result和字典复原，数据复原后继续下一个搜索
+            dic[departure].append(dst)
