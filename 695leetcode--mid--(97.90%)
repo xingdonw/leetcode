@@ -1,0 +1,30 @@
+class Solution(object):
+    def maxAreaOfIsland(self, grid):
+        """
+        :type grid: List[List[int]]
+        :rtype: int
+        """
+        self.max=0                                          #加self是变成全局变量！！！！！！！！
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] == 1:                         #找到--独立的新的island--1，dfs
+                    self.count = 1
+                    self.dfs(i,j,grid)
+        return self.max
+        
+    def dfs(self,i,j,grid):
+        grid[i][j] = 0                                      #首先将这个岛便成0，防止重复
+        if 0 <= i-1 and grid[i-1][j] == 1:                  #上有，count+1，dfs上面的
+            self.count+=1
+            self.dfs(i-1,j,grid)
+        if i+1 <= (len(grid)-1) and grid[i+1][j] == 1:      #下有
+            self.count+=1
+            self.dfs(i+1,j,grid)
+        if 0 <= j-1 and grid[i][j-1] == 1:                  #左有
+            self.count+=1
+            self.dfs(i,j-1,grid)
+        if j+1 <= (len(grid[0])-1) and grid[i][j+1] == 1:   #右有
+            self.count+=1
+            self.dfs(i,j+1,grid)
+        if self.count > self.max:                           #都dfs完了，判断，这一片岛屿的大小
+            self.max = self.count
