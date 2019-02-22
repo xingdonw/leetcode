@@ -1,0 +1,28 @@
+class Solution:
+    def canFinish(self, numCourses, prerequisites):
+        """
+        :type numCourses: int
+        :type prerequisites: List[List[int]]
+        :rtype: bool
+        """
+        course = collections.defaultdict(list)
+        visited= [0] * numCourses                  #0表示没访问，-1表示访问过了又走到了这里代表行程闭环不可能，1代表从这个点出发时可以的到结果的
+        for x,y in prerequisites:                  #建立上课对应的字典
+            course[x].append(y)
+        
+        def dfs(course,v):
+            visited[v] = -1                        #访问过了v这个节点
+            
+            for j in course[v]:                    #对于v这个节点的前置课程
+                if visited[j] == -1:               #前置课程被访问过，有闭环，返回False
+                    return False
+                if dfs(course, j)==False:          #接着dfs，如果得到false，返回false,之所以不判定==0是防止有的课不需要前置课程！！！
+                    return False
+            
+            visited[v] = 1                         #如果没影响，证明这条路可以通，返回true
+            return True
+        
+        for i in range(len(course)):               #每个遍历，i是顶点，i遍历下来是true，不影响，所有的都可以，如果有一个false，就不行
+            if dfs(course,i)==False:
+                return False
+        return True
