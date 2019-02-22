@@ -1,0 +1,28 @@
+class Solution(object):
+    def updateMatrix(self, matrix):
+        """
+        :type matrix: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        if matrix ==[]:
+            return []
+        res = [[float("inf") for i in range(len(matrix[0]))]for j in range(len(matrix))]    #为0，返回0，为1，返回inf
+        queue = []                                                                          #queue储存为0的位置
+        for i in range(len(matrix)):
+            for j in range(len(matrix[0])):
+                if matrix[i][j] == 0:                                                       #让res便成1为inf情况的矩阵
+                    res[i][j] = 0
+                    queue.append((i,j))
+
+        delta = [(1,0),(0,1),(-1,0),(0,-1)]
+        while queue:                                                                        #不停的更新
+            x, y = queue.pop(0)                                                             #最左端pop出来
+            for u,v in delta:                                                               #新的相邻坐标
+                dx = x+u
+                dy = y+v
+                if 0 <= dx <len(matrix) and 0<= dy <len(matrix[0]) and res[dx][dy] > res[x][y] + 1: 
+                #新坐标在区域内，并且res中新坐标比原坐标+1大，更新成原坐标+1，相当于新坐标变为0，append进去queue，直到最后没有1l，就会全部pop出去
+                    res[dx][dy] = res[x][y] + 1
+                    queue.append((dx,dy))
+        return res
+                       
