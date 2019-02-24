@@ -1,0 +1,23 @@
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def isValidBST(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        return self.valid(root, None, None)
+               
+    def valid(self, root, min, max):                #min是左节点的最小值，max是右节点最大值
+        if root == None or root.val == None:        #没有左右树，返回true
+            return True
+       
+        if (min is not None and root.val <=min) or (max is not None and root.val >= max):
+            return False
+       
+        return self.valid(root.left, min,root.val) and self.valid(root.right, root.val, max)
