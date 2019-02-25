@@ -1,0 +1,17 @@
+        if root == None:                            #空树，返回空
+            return None
+        if root.val == key:                         #当当前root和key相同，取左树最大的值来替代删除的值，left right保存当前链，根变为左枝
+            left = root.left
+            right = root.right
+            root = left
+            while left and left.right:               #不停的循环左枝和左枝的右枝，更新left的值为left.right
+                left = left.right
+            if left:                                #如果存在left，更新后的最大左数的右枝接上原来的右枝
+                left.right = right
+            else:                                   #如果没有这个左枝，直接接右枝
+                root = right
+        elif root.val > key:                        #如果当前节点大于key，根左继续循环，小于，根右继续循环
+                root.left = self.deleteNode(root.left,key)
+        else:
+            root.right = self.deleteNode(root.right,key)
+        return root
