@@ -1,0 +1,20 @@
+"""
+# Definition for a Node.
+class Node(object):
+    def __init__(self, val, children):
+        self.val = val
+        self.children = children
+"""
+class Solution(object):
+    def preorder(self, root):
+        """
+        :type root: Node
+        :rtype: List[int]
+        """
+        res = []
+        if root == None:                #root为空，返回res，（根左右）
+            return res
+        res.append(root.val)            #不为空，append这个root的值
+        for child in root.children:     #对于每一个children中的child，res+递归的新res
+            res += self.preorder(child)
+        return res
