@@ -1,0 +1,20 @@
+"""
+# Definition for a Node.
+class Node(object):
+    def __init__(self, val, children):
+        self.val = val
+        self.children = children
+"""
+class Solution(object):
+    def postorder(self, root):
+        """
+        :type root: Node
+        :rtype: List[int]
+        """
+        res = []
+        if root == None:                    #空，返回res，左右根
+            return res
+        for child in root.children:         #对于每个child，res+从左开始遍历
+            res += self.postorder(child)
+        res.append(root.val)                #跑完一个children，append上他们的root
+        return res
