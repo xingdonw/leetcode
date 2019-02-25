@@ -1,0 +1,25 @@
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def isUnivalTree(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        if not root:                #如果是空的树，return true
+            return True
+        stack = []                  #堆栈，先把root压进去
+        stack.append(root)
+        while stack:                #堆栈有东西
+            node = stack.pop()      #pop出最顶层
+            if node:                #如果node存在
+                if node.val != root.val:    #不相等，返回false
+                    return False
+                stack.append(node.left)     #把左右节点append进去
+                stack.append(node.right)
+        return True                 #都没问题，到最底层，return true
