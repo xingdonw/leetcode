@@ -1,0 +1,34 @@
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def isSubtree(self, s, t):
+        """
+        :type s: TreeNode
+        :type t: TreeNode
+        :rtype: bool
+        """
+        def check(s,t):                                #check函数判断s和t是否相等
+            if s == None and t == None:
+                return True
+            elif s == None and t != None:
+                return False
+            elif s != None and t == None:
+                return False
+            else:
+                if s.val == t.val:
+                    return check(s.left,t.left) and check(s.right,t.right)
+
+        def sub(s,t):                                   #判断s树每一个节点于t树的关系
+            if check(s,t):
+                return True
+            elif s!=None:
+                return sub(s.left,t) or sub(s.right,t)
+            else:
+                return False
+            
+        return sub(s,t)
