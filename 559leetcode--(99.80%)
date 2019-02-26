@@ -1,0 +1,28 @@
+"""
+# Definition for a Node.
+class Node(object):
+    def __init__(self, val, children):
+        self.val = val
+        self.children = children
+"""
+class Solution(object):
+    def maxDepth(self, root):
+        """
+        :type root: Node
+        :rtype: int
+        """
+        if not root:                            #root空，返回0
+            return 0
+        depth = 1                               #深度至少为1，res每个底的深度
+        res = []
+        
+        def dfs(root,res,depth):                #dfs
+            if root.children:                   #如果有子树，深度先+1
+                depth += 1
+                for child in root.children:     #对于每个孩子，dfs继续循环
+                    dfs(child,res,depth)
+            res.append(depth)                   #没有子树，res append此时的深度，返回true
+            return True
+        
+        if dfs(root,res,depth):                 #返回最大depth
+            return max(res)
