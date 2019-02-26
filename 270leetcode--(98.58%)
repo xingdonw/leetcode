@@ -1,0 +1,33 @@
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def closestValue(self, root, target):
+        """
+        :type root: TreeNode
+        :type target: float
+        :rtype: int
+        """
+        delta = abs(root.val - target)                  #差值
+        ans = root.val                                  #结果
+        while root:                                     
+            if root.val == target:                      #如果此节点==target，返回这个节点的值
+                ans = root.val
+                break
+            elif target < root.val:                     #如果此节点值>target，可以在左树
+                if abs(target - root.val) < delta:      #判断差值，小的话更新，root=root.left
+                    delta = abs(target - root.val)
+                    ans = root.val
+                root = root.left
+            else:                                       #如果此节点值<target，可以在右树
+                if abs(target - root.val) < delta:
+                    delta = abs(target - root.val)
+                    ans = root.val
+                root = root.right
+            
+       
+        return ans
