@@ -1,0 +1,23 @@
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def convertBST(self, root):
+        """
+        :type root: TreeNode
+        :rtype: TreeNode
+        """
+        self.sum = 0                #self定义类，sum是和，这道题从最大的开始往回遍历，右--中--左
+        def dfs(root):
+            if root == None:
+                return
+            dfs(root.right)         #一直递归到最右下最大
+            self.sum += root.val    #sum从最大开始叠加，然后每一个位置更新为此时的sum
+            root.val = self.sum
+            dfs(root.left)          #跑完右中，跑左
+        dfs(root)
+        return root
