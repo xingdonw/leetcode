@@ -1,0 +1,29 @@
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def findSecondMinimumValue(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        res = []                                            #储存所有节点的值
+        if not root or (not root.left and not root.right):  #空树或者只有一个节点的树，返回-1
+            return -1
+        def dfs(root,res):                                  #dfs，存每个节点的值
+            if root:
+                res.append(root.val)
+                dfs(root.left,res)
+                dfs(root.right,res)
+        
+        dfs(root,res)
+        res =  set(res)                                     #排除重复的值
+        if len(res) <= 1:                                   #只有一个，返回-1
+            return -1
+        else:                                               #移除最小的之后，返回最小的
+            res.remove(min(res))
+            return min (res)
