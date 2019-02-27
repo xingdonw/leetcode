@@ -1,0 +1,20 @@
+class Solution(object):
+    def reverseWords(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        l = s.split(" ")            #以空格为分隔符，转换为数组
+        l = l[::-1]                 #翻转
+        tmp = []                    #tmp保存有效信息，排除因空格产生的""
+        for i in l:
+            if i != "":
+                tmp.append(i)
+        if tmp == []:               #如果没有有效信息，返回""
+            return ""
+        res=""                      #输出
+        for i in range(len(tmp)-1): #到倒数第一个有效字符前，字符+空格
+            res+=tmp[i]
+            res+=" "
+        res+=tmp[-1]                #直接加上最有一个有效字符
+        return res
