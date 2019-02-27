@@ -1,0 +1,31 @@
+class Solution(object):
+    def nextClosestTime(self, time):
+        """
+        :type time: str
+        :rtype: str
+        """
+        a,b,c,d = int(time[0]),int(time[1]),int(time[3]),int(time[4])
+        l = [a,b,c,d]
+        tmp = []
+
+        for i in l:
+            if d< i <=9:                                    #最后一位不是9，看看有没有比d大的数字
+                tmp.append(i)
+        if tmp != []:                                       #如果有，更换d
+            return str(a)+str(b)+":"+str(c)+str(min(tmp))
+        
+        tmp = []
+        for i in l:
+            if c< i < 6:                                    #如果倒数第二位小于6，看看有没有比c大的数字
+                tmp.append(i)
+        if tmp != []:                                       #如果有，更换c,并且d也更换为所有数字中最小的
+            return str(a)+str(b)+":"+str(min(tmp))+str(min(l))
+        
+        tmp = []
+        for i in l:
+            if (a == 2 and b< i <=3) or (a<2 and b<i<=9):   #首位为2，第二位在0-3之间比b大的最小值，首位为0/1，第二位在0-9之间比b大的最小值
+                tmp.append(i)
+        if tmp != []:                                       #如果有更换最小b，最小且比6小的c，最小的d
+            return str(a)+str(min(tmp))+":"+str(min([x for x in l if x<6]))+str(min(l))
+        
+        return str(a)+str(a)+":"+str(a)+str(a)              
