@@ -1,0 +1,33 @@
+class Solution(object):
+    def restoreIpAddresses(self, s):
+        """
+        :type s: str
+        :rtype: List[str]
+        """
+        
+        def check(num):                             #判断取出来的数字是否合法   
+            if len(num) == 1:                       #排除0.0.0.0这种情况
+                return True
+            if int(num) <= 255 and num[0] != "0":   #每一个i的值在区间内，例如"012" 10**(3-1) <= i <=255,不可能
+                return True
+            else:
+                return False
+
+        res = []                                    #保存结果
+        n = len(s)
+        for i in range(0,min(3,n-3)):               #第1个断点的位置，第一个数合法，继续
+            a = s[:i+1]
+            if check(a) == False:
+                break
+            for j in range(i+1,min(i+4,n-2)):       #第2个断点的位置，第二个数合法继续
+                b=s[i+1:j+1]
+                if check(b) == False:
+                    break
+                for k in range(j+1,min(j+4,n-1)):   #第3个断点的位置，第三个数合法继续，第四个数合法，保存
+                    c=s[j+1:k+1]
+                    d=s[k+1:]
+                    if check(c) == False:
+                        break
+                    if check(d) == True:
+                        res.append(a+"."+b+"."+c+"."+d)
+        return res
