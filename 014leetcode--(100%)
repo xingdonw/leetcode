@@ -1,0 +1,21 @@
+class Solution(object):
+    def longestCommonPrefix(self, strs):
+        """
+        :type strs: List[str]
+        :rtype: str
+        """
+        if len(strs) == 0:                  #空，返回""
+            return ""
+        minl = float("inf")                 #测最大前缀的可能性，也就是最短元素的长度
+        for i in range(len(strs)):
+            minl = min(minl,len(strs[i]))
+        tmp = []                            #tmp保存每次不同长度的前缀的str，递减
+        while minl > 0:
+            for i in range(len(strs)):
+                tmp.append(strs[i][:minl])
+            x = len(set(tmp))
+            if x == 1:                      #set后只有一个，就是可以了，返回这个前缀
+                return tmp[0]
+            tmp=[]
+            minl-=1
+        return ""                           #都没有返回，返回""
