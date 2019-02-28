@@ -1,0 +1,10 @@
+class Solution:
+    def findMinDifference(self, timePoints: List[str]) -> int:           
+        tmp = []
+        for i in range(len(timePoints)):                                    #把所有的时间换成分钟，并排序
+            tmp.append(int(timePoints[i][:2])*60+int(timePoints[i][3:]))
+        tmp.sort()
+        res = min(tmp[-1]-tmp[0],tmp[0]+24*60-tmp[-1])                      #res返回最小min差，首先是最大和最小的最小差值
+        for i in range(1,len(tmp)):                                         #每相邻的时间来比较
+            res = min(res,min(tmp[i]-tmp[i-1],tmp[i-1]+24*60-tmp[i]))
+        return res
