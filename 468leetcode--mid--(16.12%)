@@ -1,0 +1,38 @@
+class Solution:
+    def validIPAddress(self, IP: str) -> str:
+        if "." in IP and self.checkipv4(IP):            #判断ipv4格式
+            return "IPv4"
+        if ":" in IP and self.checkipv6(IP):            #判断ipv6格式
+            return "IPv6"
+        return "Neither"                                #都不是
+        
+    def checkipv4(self,IP):
+        tmp = IP.split(".")                             #分割ipv4"."
+        if len(tmp) != 4:                               #不是4个，返回false
+            return False
+        for i in range(len(tmp)):                       #对于每一个元素
+            if not tmp[i].isdecimal():                  #如果不是数字，返回false
+                return False
+            if tmp[i][0] == "0" and len(tmp[i]) > 1:    #排除元素不是0的情况下，前面多“0”的情况
+                return False
+            if 0<= int(tmp[i]) <=255:                   #必须在0-255
+                continue
+            else:
+                return False
+        return True
+    
+    def checkipv6(self,IP):
+        if "::" in IP:                                  #"::"，false
+            return False
+        tmp = IP.split(":")                             #分割ipv6
+        if len(tmp) != 8:                               #不是8段，false
+            return False
+        dict = "0123456789abcdefABCDEF"                 #保存所有可以出现的字母和数字
+        for i in range(len(tmp)):
+            if (len(tmp[i]) > 4):                       #每个元素长度不超过4
+                return False
+            for j in range(len(tmp[i])):
+                if tmp[i][j] not in dict:               #出现不在字典里的字母，false
+                    return False
+        return True
+    
