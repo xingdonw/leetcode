@@ -1,0 +1,48 @@
+class Solution:
+    def intToRoman(self, num: int) -> str:
+        res = ""                            #结果保存
+        thousand = num // 1000              #千位
+        res += "M" * thousand
+        rest = num % 1000
+        
+        hundred = rest // 100               #百位各种情况
+        if hundred == 4:
+            res += "CD"
+        elif hundred == 9:
+            res += "CM"
+        elif 1<=hundred<=3:
+            res += "C" * hundred
+        elif hundred == 5:
+            res += "D"
+        elif 6<=hundred<=8:
+            res += "D"
+            res += "C"*(hundred - 5)
+        rest = rest % 100
+        
+        decade = rest // 10                 #十位各种情况
+        if decade == 4:
+            res += "XL"
+        elif decade == 9:
+            res += "XC"
+        elif 1<=decade<=3:
+            res += "X" * decade
+        elif decade == 5:
+            res += "L"
+        elif 6<=decade<=8:
+            res += "L"
+            res += "X"*(decade - 5)
+        rest = rest % 10   
+        
+        if rest == 4:                       #个位各种情况
+            res += "IV"
+        elif rest == 9:
+            res += "IX"
+        elif 1<=rest<=3:
+            res += "I" * rest
+        elif rest == 5:
+            res += "V"
+        elif 6<=rest<=8:
+            res += "V"
+            res += "I"*(rest - 5)     
+            
+        return res
