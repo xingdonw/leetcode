@@ -1,0 +1,22 @@
+class Solution:
+    def simplifyPath(self, path: str) -> str:
+        l = path.split("/")                     #先根据"/"分割字符串，记过可能有".","..","","str"
+        stack = []                              #堆栈
+        for i in range(len(l)):
+            if l[i] == "" or l[i] == ".":       #"","."相当于没用，跳过
+                continue
+            if l[i] == "..":                    #".."，返回上一级目录，如果stack有东西，pop两次，分别把"str"和"/"pop出去了
+                if stack != []:
+                    stack.pop()
+                    stack.pop()
+            else:                               #如果是"str",stack加入"/str"
+                stack.append("/")
+                stack.append(l[i])
+        
+        res = ""                                #保存结果
+        for i in range(len(stack)):
+            res += stack[i]
+        if res == "":                           #空，返回"/"
+            return "/"
+        else:
+            return res
