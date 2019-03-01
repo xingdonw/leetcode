@@ -1,0 +1,35 @@
+class Solution:
+    def compareVersion(self, version1: str, version2: str) -> int:
+        tmp1 = version1.split(".")                  #把每个版本号分出了，形成数组
+        tmp2 = version2.split(".")
+        
+        j=len(tmp1)-1                               #排除版本最后的数字是 0 的可能性，因为没有意义
+        while j>=0:
+            if int(tmp1[j]) == 0:
+                tmp1.pop()
+            else:
+                break
+            j-=1
+
+                
+        j=len(tmp2)-1
+        while j>=0:
+            if int(tmp2[j]) == 0:
+                tmp2.pop()
+            else:
+                break
+            j-=1
+
+        
+        for i in range(min(len(tmp1),len(tmp2))):   #挨个比较，大的返回1，小的返回-1
+            if int(tmp1[i]) > int(tmp2[i]):
+                return 1
+            if int(tmp1[i]) < int(tmp2[i]):
+                return -1
+
+        if len(tmp1) > len(tmp2):                   #如果前面都相等，长的版本大
+            return 1
+        elif len(tmp1) < len(tmp2):
+            return -1
+        else:
+            return 0
