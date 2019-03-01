@@ -1,0 +1,26 @@
+class Solution:
+    def findShortestSubArray(self, nums: List[int]) -> int:
+        if len(nums)==0:
+            return 0
+        if len(nums)==1:
+            return 1
+        dict = {}
+        for i in nums:                              #统计每个数字的频率
+            if i not in dict:
+                dict[i] = 1
+            else:
+                dict[i] +=1
+        freq = list(dict.values())                  #每个数字的频率
+        maxfreq = max(freq)                         #找到最大频率
+        tmp = []                                    #tmp保存最大频率的元素
+        for key, value in dict.items():
+            if value == maxfreq:
+                tmp.append(key)             
+        ans = float("inf")                          #保存结果最小长度
+        for maxelement in tmp:                      #判断每一种可能性的最小长度，并返回最小的
+            tmp1 = []
+            for index,element in enumerate(nums):
+                if element == maxelement:
+                    tmp1.append(index)
+            ans = min(ans,tmp1[-1]-tmp1[0]+1)
+        return ans
