@@ -1,0 +1,53 @@
+class Solution:
+    def calculate(self, s: str) -> int:
+        l =s.split(" ")
+        tmp = ""                                                                    #tmp保存排除空格后的str
+        for i in l:
+            if i != "":
+                tmp += i
+        stack = []
+        if tmp[0] == "-":                                                           #如果首字符是"-"，在首位+0
+            stack.append(0)
+        digit = ""                                                                  #保存数字，“3”“3” = “33”
+        for i in range(len(tmp)):                                                   #stack更新为符号和数字的组合
+            if tmp[i] == "-" or tmp[i] == "+" or tmp[i] == "*" or tmp[i] == "/":
+                if digit == "":
+                    stack.append(tmp[i])
+                else:
+                    stack.append(int(digit))
+                    stack.append(tmp[i])
+                    digit = ""
+            if tmp[i].isalnum():
+                digit += tmp[i]
+        if digit != "":
+            stack.append(int(digit))
+        res = []                                                                    #res保存，* /之后的结果
+        i = 0
+        while i<len(stack):
+            if stack[i] == "*":
+                x = res.pop() * stack[i+1]
+                res.append(x)
+                i+=2
+            elif stack[i] == "/":
+                x = res.pop() // stack[i+1]
+                res.append(x)
+                i+=2
+            else:
+                res.append(stack[i])
+                i+=1
+    
+        ans = []                                                                    #ans进行 + - 的操作
+        i = 0
+        while i<len(res):
+            if res[i] == "+":
+                x = ans.pop() + res[i+1]
+                ans.append(x)
+                i+=2
+            elif res[i] == "-":
+                x = ans.pop() - res[i+1]
+                ans.append(x)
+                i+=2
+            else:
+                ans.append(res[i])
+                i+=1   
+        return ans[0]
