@@ -1,0 +1,15 @@
+class Solution:
+    def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        res = []                                    #保存结果
+        for i in nums1:                             #挨个筛选nums1的元素
+            for j in range(len(nums2)):             #在nums2的元素中先找相同的
+                if i == nums2[j]:                   #找到相同位置，在之后找比此位置的大的第一个数，保存
+                    tmp = j
+                    while tmp < len(nums2):         
+                        if nums2[tmp] > i:
+                            res.append(nums2[tmp])
+                            break
+                        tmp+=1
+                    if tmp == len(nums2):           #如果跑到结尾都没有，倒入-1
+                        res.append(-1)
+        return res
