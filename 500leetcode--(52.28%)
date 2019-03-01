@@ -1,0 +1,9 @@
+class Solution:
+    def findWords(self, words: List[str]) -> List[str]:
+        dict = ["qwertyuiopQWERTYUIOP","asdfghjklASDFGHJKL","zxcvbnmZXCVBNM"]   #每一行的字母所有情况
+        res = []                                                                #结果
+        for i in words:                                                         #取出每一个input
+            for j in dict:                                                      #从字典里对比
+                if set(i).issubset(j):                                          #如果set(input),是j的子集，issubset就是判断子集
+                    res.append(i)
+        return res
