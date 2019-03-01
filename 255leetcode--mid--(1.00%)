@@ -1,0 +1,32 @@
+class Solution:
+    def verifyPreorder(self, preorder: List[int]) -> bool:
+        #根左右 preorder traversal sequence of a binary search tree
+        if preorder == []:
+            return True
+        stack = []
+        stack.append(preorder[0])                           #堆栈保存，先保存根
+        root = preorder[0]                                  #根节点
+        for i in range(1,len(preorder)):
+
+            if preorder[i]  > root and min(preorder[i:]) < root:    #判断右枝，进入右枝且之后所有的量中的最小值小于根，false
+                return False
+            if preorder[i]  > root and min(preorder[i:]) > root:    #正常，相当于左枝和根节点没问题，更新新的根节点
+                root = preorder[i]
+
+            if preorder[i] < preorder[i-1]:                 #如果新的叶 < 上一个叶,压入堆栈
+                stack.append(preorder[i])
+            if preorder[i] > preorder[i-1]:                 #如果新的叶 > 上一个叶,把前面所有小的枝弹出
+                j = len(stack)-1
+                while j>=0:                                 
+                    if preorder[i] > stack[j]:              #把所有的比此节点小的元素弹出，x相当于临时根
+                        x = stack.pop()
+                    elif preorder[i] < stack[j]:            #判断左枝，之后所有的量中的最小值大于等于临时根x，false
+                        if x >= min(preorder[i:]):
+                            return False
+                        stack.append(preorder[i])           #如果不是，把这个大的点插入，判断这之后的情况
+                        break
+                    else:
+                        return False
+                    j-=1
+                
+        return True
