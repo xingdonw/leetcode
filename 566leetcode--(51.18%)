@@ -1,0 +1,15 @@
+class Solution:
+    def matrixReshape(self, nums: List[List[int]], r: int, c: int) -> List[List[int]]:
+        tmp = []
+        for i in range(len(nums)):                      #收集所有元素
+            for j in range(len(nums[0])):
+                tmp.append(nums[i][j])
+        if r*c != len(tmp):                             #元素数量不匹配，返回原始数组
+            return nums
+        dp = [[0 for i in range(c)]for j in range(r)]   #挨个放入
+        x = 0
+        for i in range(r):
+            for j in range(c):
+                dp[i][j] = tmp[x]
+                x+=1
+        return dp
