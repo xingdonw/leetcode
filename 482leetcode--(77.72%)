@@ -1,0 +1,16 @@
+class Solution:
+    def licenseKeyFormatting(self, S: str, K: int) -> str:
+        l = S.split("-")                #找到每个字符排除"-"
+        tmp = ""                        #把l合并成字符串
+        res = ""                        #保存结果
+        for i in range(len(l)):     
+            tmp+=l[i].upper()           #合并过程中，小写变大写
+        x = len(tmp) % K                #取余数，放在结果的最前面
+        if x != 0:
+            res+=tmp[:x]
+            res+=("-")
+            tmp = tmp[x:]
+        for i in range(0,len(tmp),K):   #按组排序出结果
+            res+=tmp[i:i+K]
+            res+=("-")
+        return res[:len(res)-1]
