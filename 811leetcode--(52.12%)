@@ -1,0 +1,14 @@
+class Solution:
+    def subdomainVisits(self, cpdomains: List[str]) -> List[str]:
+        dict = collections.defaultdict(int)         #字典，内部保存int次数，key是地址
+        res = []                                    #结果
+        for i in range(len(cpdomains)):
+            l = cpdomains[i].split(" ")             #l把次数和地址分开
+            t = l[-1].split(".")
+            for j in range(len(t)):                 #把地址中的所有可能性挨个循环，把次数加上
+                x = ".".join(t[j:])
+                dict[x] += int(l[0])
+        for key,values in dict.items():             #把key和value提取出来
+            res.append(str(values)+" "+key)
+        return res
+            
