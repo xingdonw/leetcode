@@ -1,0 +1,23 @@
+class Solution:
+    def backspaceCompare(self, S: str, T: str) -> bool:
+        l1 = []
+        l2 = []
+        for i in range(len(S)):
+            if S[i] == "#" and l1 == []:        #"#"但储存数组位空，不做操作
+                continue
+            elif S[i] == "#" and l1 != []:      #"#"，储存数组不空，pop掉最后一个
+                l1.pop()
+            else:
+                l1.append(S[i])                 #其他的，直接放入
+        for i in range(len(T)):
+            if T[i] == "#" and l2 == []:
+                continue
+            elif T[i] == "#" and l2 != []:
+                l2.pop()
+            else:
+                l2.append(T[i])        
+                
+        if ("".join(l1)) == ("".join(l2)):
+            return True
+        else:
+            return False
