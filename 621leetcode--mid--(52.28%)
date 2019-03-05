@@ -1,0 +1,15 @@
+class Solution:
+    def leastInterval(self, tasks: List[str], n: int) -> int:
+
+        output = [0]*26
+        for i in tasks:                                                 #统计每个字母出现的次数
+            output[ord(i)-ord('A')] = output[ord(i)-ord('A')]+1
+ 
+        count = 0                                                       #统计有多少个最大次数
+        max_o = max(output)                                             #最大次数
+        for i in output:
+            if i==max_o:
+                count = count+1
+                    
+        return max(len(tasks),(max_o-1)*(n+1)+count)                    #最长的值，（最多任务数-1）*（n + 1） + （相同最多任务的任务个数）
+
