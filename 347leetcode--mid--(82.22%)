@@ -1,0 +1,8 @@
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        l = collections.Counter(nums)                           #统计次数
+        x = sorted(l.items(),key=lambda l:l[1],reverse=True)    #根据次数，排序，从大到小，所以需要reverse
+        res = []
+        for i in range(k):                                      #挨个把key插入
+            res.append(x[i][0])
+        return res
