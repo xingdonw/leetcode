@@ -1,0 +1,9 @@
+class Solution:
+    def moveZeroes(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        number = nums.count(0)      #计算有多少0
+        for i in range(number):     #删掉这些0
+            nums.remove(0)
+        nums += ([0] * number)      #在末尾加上
