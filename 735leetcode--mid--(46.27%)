@@ -1,0 +1,17 @@
+class Solution:
+    def asteroidCollision(self, asteroids: List[int]) -> List[int]:
+        stack = []                                  #堆栈
+        for i in asteroids:                         #挨个遍历
+            while stack and stack[-1]>0 and i<0:    #如果堆栈不是空的，前一个为正，后一个为负，可以抵消
+                if abs(stack[-1]) == abs(i):        #两者相同，抵消，i=none，stack最后一个pop，弹出
+                    stack.pop()         
+                    i = None
+                    break
+                elif abs(stack[-1]) > abs(i):       #前一个大，后一个=none，弹出
+                    i = None
+                    break
+                else:                               #前一个小，前一个消灭，接着while循环
+                    stack.pop()
+            if i != None:                           #i不是none，append进去堆栈
+                stack.append(i)
+        return stack
