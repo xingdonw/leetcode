@@ -1,0 +1,15 @@
+class Solution:
+    def addDigits(self, num: int) -> int:
+        res = 0
+        while 10<=num:      #统计和
+            res += num%10
+            num = num//10
+        res+=num
+        if res < 10:        #小于10，直接返回
+            return res
+        else:
+            tmp = res%9     #大于10，对9取余数
+            if tmp == 0:    #0，返回9
+                return 9
+            else:           #否则直接返回余数
+                return tmp
