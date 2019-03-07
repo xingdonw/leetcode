@@ -1,0 +1,15 @@
+class Solution:
+    def reverseWords(self, str: List[str]) -> None:
+        """
+        Do not return anything, modify str in-place instead.
+        """
+        str.reverse() # 整体调用reverse()
+
+        index = 0
+        for i in range(len(str)):
+            if str[i] == " ":
+                str[index: i] = reversed(str[index: i]) 
+# slice使用reversed，先reverse，再赋值。 Tip, s[index:i]（i not include）,python list 不包含最后一个index i。 需要和上面自己写的方法区别。
+                index = i + 1
+
+        str[index: ] = reversed(str[index: ]) # 同理
