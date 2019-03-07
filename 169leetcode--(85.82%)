@@ -1,0 +1,11 @@
+class Solution:
+    def majorityElement(self, nums: List[int]) -> int:
+        nums.sort()
+        return nums[len(nums)//2]
+        '''
+        l = collections.Counter(nums)   #统计每个数出现的次数
+        for key,value in l.items():     #遍历dict，如果次数>一半长度，返回key
+            if value > len(nums)/2:
+                return key
+        '''
+            
