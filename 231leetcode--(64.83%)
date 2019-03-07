@@ -1,0 +1,15 @@
+class Solution:
+    def isPowerOfTwo(self, n: int) -> bool:
+        if -1<n<0:                      #-1到0之间的数字，变成正数并取倒数
+            n=1/abs(n)
+        if n<=-1:                       #小于-1，false
+            return False
+        if n == 1:                      #等于1，true
+            return True
+        if n == 0:                      #等于0，false
+            return False
+        while n>1:                      #不停对2取余数
+            if n%2 != 0:
+                return False
+            n=n//2
+        return True
