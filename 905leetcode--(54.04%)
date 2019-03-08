@@ -1,0 +1,4 @@
+class Solution:
+    def sortArrayByParity(self, A: List[int]) -> List[int]:
+        
+        return sorted(A,key = lambda x:x%2)     #根据每个值取余数的结果排序，偶数取余数=0排在前面
