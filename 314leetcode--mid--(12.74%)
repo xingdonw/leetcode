@@ -1,0 +1,26 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def verticalOrder(self, root: TreeNode) -> List[List[int]]:
+        if not root:
+            return []
+        dp = collections.defaultdict(list)                  #dp字典保存（当前node，位置number）
+        q = [(root,0)]
+        while q:
+            node,number = q.pop(0)                          #先把头pop出来，得到当前node和列的number
+            dp[number].append(node.val)                     #dp插进去相应列number的node.val
+            if node.left:                                   #有左节点，右节点，插入q序列
+                q.append((node.left,number-1))
+            if node.right:
+                q.append((node.right,number+1))
+        res = []
+        for i in sorted(dp.keys()):                         #对col的key排序，把value插入res
+            res.append(dp[i])
+        return res
+            
+
