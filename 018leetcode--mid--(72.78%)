@@ -1,0 +1,22 @@
+class Solution:
+    def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
+        dic = collections.defaultdict(list)                                         #储存前两个数的index位置
+        res = set()                                                                 #set，保证不重复，每次找到正确的list，放进去
+        nums.sort()                                                                 #先排序，保证数据由小到大，方便之后判断
+        ans = []                                                                    #结果
+        for i in range(len(nums)-1):                                                #前两个数的和作为key，value是他们的index！！
+            for j in range(i+1,len(nums)):
+                key = nums[i] + nums[j]
+                dic[key].append([i,j])
+
+        
+        for i in range(2,len(nums)-1):                                              #后两个数，从第二个开始！！
+            for j in range(i+1,len(nums)):
+                tmp = target - nums[i] - nums[j]                                    #target-后两个数的和在dic中，挨个判断不同dic-index
+                if tmp in dic:
+                    for x in dic[tmp]:
+                        if x[1] < i:                                                #前两个数index的最大<后两个数index最小是可以的放进去
+                            res.add((nums[x[0]],nums[x[1]],nums[i],nums[j]))
+        for i in res:                                                               #set变list
+            ans.append(list(i))
+        return ans
