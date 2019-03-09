@@ -1,0 +1,16 @@
+class Solution:
+    def removeKdigits(self, num: str, k: int) -> str:
+        if len(num) == k:                                       #删除的数字多，就是0
+            return '0'
+        stack = []                                              #堆栈
+        for n in num:                                      #遍历每个元素，如果新元素比堆栈最后一个元素小替换，k次最多，k代表可以删除的元素次数
+            while stack and k and int(stack[-1]) > int(n):
+                stack.pop()
+                k -= 1
+            stack.append(n)
+        while k:                                            #如果k没用完，说明后面的数字一样大，删掉剩下次数
+            stack.pop()
+            k -= 1
+        if not stack:                                       #空的，0
+            return '0'
+        return str(int("".join(stack)))                     #先int后str防止开头0
