@@ -1,0 +1,23 @@
+class Solution:
+    def subarraysDivByK(self, a: List[int], k: int) -> int:
+        counts = collections.defaultdict(int)   # 用于对各个余数进行计数
+        counts[0] = 1                           # 因为 0 本身就是一个，所以要先初始化
+        cur_sum = 0                             # 记录当前列表的和
+        ans = 0                                 # 记录可被整数的子序列数
+        for num in a:
+            cur_sum += num
+            mod = cur_sum % k                   # 取余
+            ans += counts[mod]                  # 累计
+            counts[mod] += 1                    # 计数
+        return ans
+
+（1）可以设 P[i] = (A[0] + A[1] + ... + A[i])%K，现在仔细想一下，如果P[i] = P[j]，且j>i。是不是可以得出来子序列A[i, j] 是可以被K整除的。
+想想为什么？因为这两个子序列余数相同，很显然(A[0] + A[1] + ... + A[i]+... + A[j]) - (A[0] + A[1] + ... + A[i]) = A[i, j] 的差的余数
+一定为0，也就是整除了。
+
+（2）现在问题就简化了很多：
+
+首先，要求出这些余数来，也就是P[i]。
+然后把相同的余数，它们的个数统计出来。
+例如，某一个余数的个数为5，是不是可以的出来，5 *(5-1)//2 = 10（任意两两配对）。
+依次类推，把所有的结果求出，然后求和即可。
