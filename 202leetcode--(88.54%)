@@ -1,0 +1,13 @@
+class Solution:
+    def isHappy(self, n: int) -> bool:
+        visited = [n]                       #访问过的数
+        while n !=1:                        #判断新的数是否为1
+            newn = 0                        #一个数分解后的新数
+            while n > 0:                    
+                newn += (n%10) * (n%10)
+                n = n//10
+            if newn in visited:             #如果新的数被访问过，构成循环，false
+                return False
+            n=newn                          #没被访问过，但也不是1，append进去
+            visited.append(n)
+        return True
