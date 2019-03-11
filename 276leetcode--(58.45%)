@@ -1,0 +1,15 @@
+class Solution:
+    def numWays(self, n: int, k: int) -> int:
+        if n == 0:
+            return 0
+        if n == 1:
+            return k
+                                                    #n==2,初始状态
+        same = k                                    #当前柱子和前一种相同，这次有k种
+        diff = k*(k-1)                              #当前柱子和前一种不同，这次有k*(k-1)种
+        
+        for i in range(3,n+1):                      #（3，n+1），n种，要走到n种，到n+1
+            same, diff = diff , (same+diff)*(k-1)   
+            #新一个柱子和前一个相同，次数=前一个柱子不同的次数，防止3个连续
+            #新一个柱子和前一个不同，次数=前一个（same+diff）的和*（k-1）代表与前个不同
+        return same+diff                            #返回两种情况的和
