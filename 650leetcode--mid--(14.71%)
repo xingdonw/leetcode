@@ -1,0 +1,13 @@
+class Solution:
+    def minSteps(self, n: int) -> int:
+        if n<=1:
+            return 0
+        M = [i for i in range(n + 1)]                   #每次有多少个"A"
+        #对于某个素数n，它需要n个操作，因为它不能被分解为偶数个复制和粘贴操作
+        #对于某个合数n，复制它的最高因子m并粘贴n / m次
+        for i in range(2, n + 1):                       
+            for j in range(2, i):
+                if i % j == 0:
+                    M[i] = min(M[i], M[j] + i // j)
+
+        return M[-1]
