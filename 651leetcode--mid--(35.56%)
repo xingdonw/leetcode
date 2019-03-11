@@ -1,0 +1,6 @@
+class Solution:
+    def maxA(self, N: int) -> int:
+        dp = [i for i in range(N+1)]                                #dp代表最小个数，初始化是基本个数
+        for i in range(7,N+1):
+            dp[i] = max(dp[i-1]+1,dp[i-3]*2,dp[i-4]*3,dp[i-5]*4)    #每种情况
+        return dp[N]
