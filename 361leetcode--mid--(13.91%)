@@ -1,0 +1,38 @@
+class Solution:
+    def maxKilledEnemies(self, grid: List[List[str]]) -> int:
+        ans=0
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] == "0":               #"0"可以按炸弹
+                    tmp1 = i                        #tmp1，tmp2储存i，j之后不停复原
+                    tmp2 = j
+                    res = 0                         #这个位置上按炸弹的结果
+                    while (i-1) >=0:                #向上找能炸几个，碰到"E"+1，碰到"W"+1
+                        if grid[i-1][j] == "E":
+                            res += 1
+                        if grid[i-1][j] == "W":
+                            break
+                        i-=1
+                    i = tmp1                        #恢复i值
+                    while (i+1)<len(grid):          #向下找能炸几个，碰到"E"+1，碰到"W"+1
+                        if grid[i+1][j] == "E":
+                            res += 1
+                        if grid[i+1][j] == "W":
+                            break
+                        i+=1
+                    i = tmp1                        #恢复i值
+                    while (j-1)>=0:                 #向左找能炸几个，碰到"E"+1，碰到"W"+1
+                        if grid[i][j-1] == "E":
+                            res+=1
+                        if grid[i][j-1] == "W":
+                            break
+                        j-=1
+                    j = tmp2                        #恢复j值
+                    while (j+1)<len(grid[0]):       #向右找能炸几个，碰到"E"+1，碰到"W"+1
+                        if grid[i][j+1] == "E":
+                            res+=1
+                        if grid[i][j+1] == "W":
+                            break
+                        j+=1 
+                    ans = max(ans,res)              #比较去最大的
+        return ans
