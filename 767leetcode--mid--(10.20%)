@@ -1,0 +1,20 @@
+class Solution(object):
+    def reorganizeString(self, S):
+        """
+        :type S: str
+        :rtype: str
+        """
+        counter = collections.Counter(S)                #按照出现的次数
+        ans = "#"
+        while counter:
+            stop = True
+            for item, times in counter.most_common():   #找到最大次数的字母和次数
+                if ans[-1] != item:                     #如果和前一个不同，插入结果，次数减一
+                    ans += item
+                    counter[item] -= 1
+                    if not counter[item]:               #如果次数=0，删除这个项目
+                        del counter[item]
+                    stop = False
+                    break
+            if stop: break
+        return ans[1:] if len(ans) == len(S) + 1 else ""    
